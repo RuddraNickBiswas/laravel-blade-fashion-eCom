@@ -102,9 +102,9 @@
                                             </div>
 
                                             <div class="col-12 form-group">
-                                                <button class="button button-3d button-black m-0" id="login-form-submit"
-                                                    name="login-form-submit" value="login" type="submit"  onclick="event.preventDefault(); >Login</button>
-                                                <a href="#" class="float-end">Forgot Password?</a>
+                                                <button class="button button-3d button-black m-0" 
+                                                    name="submit" value="login" type="submit"   >Login</button>
+                                                <a href="{{ route('password.request') }}" class="float-end">Forgot Password?</a>
                                             </div>
                                         </div>
 
