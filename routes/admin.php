@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\AdminDashboardController;
-use App\Http\Controllers\admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

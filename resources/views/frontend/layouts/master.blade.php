@@ -31,9 +31,12 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/colors.php?color=fd79a8') }}" type="text/css" />
 
+        	
 
     {{-- TOASTR --}}
     <link rel="stylesheet" href="{{ asset('admin/assets/toastr.min.css') }}">
+
+    @stack('style')
 
     <!-- Document Title
  ============================================= -->
@@ -143,6 +146,7 @@
  ============================================= -->
     <script src="{{ asset('frontend/js/functions.js') }}"></script>
 
+
     <!-- ADD-ONS JS FILES -->
     <script></script>
 
@@ -159,7 +163,7 @@
         @endif
     </script>
 
-
+    @stack('script')
 </body>
 
 </html>

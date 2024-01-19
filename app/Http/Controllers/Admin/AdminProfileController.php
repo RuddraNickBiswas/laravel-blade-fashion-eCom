@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\admin\AdminPasswordUpdateRequest;
-use App\Http\Requests\admin\AdminProfileUpdateRequest;
+use App\Http\Requests\Admin\AdminPasswordUpdateRequest;
+use App\Http\Requests\Admin\AdminProfileUpdateRequest;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +24,7 @@ class AdminProfileController extends Controller
         // dd($request->all());
         $user = Auth::user();
         
-        $imagePath = $this->uploadImage($request, 'avater');
+        $imagePath = $this->uploadImage($request, 'avater', $user->avater);
         // dd($imagePath);
         $user->avater = isset($imagePath) ? $imagePath : $user->avater;
         $user->name = $request->name;

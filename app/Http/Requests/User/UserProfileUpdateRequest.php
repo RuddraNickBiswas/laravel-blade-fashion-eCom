@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\admin;
+namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use function Laravel\Prompts\password;
-
-class AdminPasswordUpdateRequest extends FormRequest
+class UserProfileUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +21,11 @@ class AdminPasswordUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'current_password' => ['required' , 'current_password'],
-            'password' => ['required', 'min:5', 'confirmed']
+            'avater' => ['nullable' ,'image', 'max:3000'],
+            'name' => ['required','max:50'],
+            'email' => ['required','unique:users,email,' .auth()->user()->id],
         ];
     }
 }
