@@ -1,11 +1,9 @@
 @extends('admin.layouts.master')
 
+@section('page-title', 'Profile')
+
 @section('content')
-    <div class="main-content">
-        <section class="section">
-            <div class="section-header">
-                <h1>Profile</h1>
-            </div>
+ 
 
             <div class="card card-primary">
                 <div class="card-header">
@@ -71,8 +69,7 @@
 
             <div class="section-body">
             </div>
-        </section>
-    </div>
+     
 
     @push('script')
         <script>

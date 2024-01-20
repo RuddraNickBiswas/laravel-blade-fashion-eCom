@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>Ecommerce Dashboard &mdash; Stisla</title>
 
@@ -21,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/assets/css/components.css') }}">
 
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    @stack('styles')
 
     {{-- TOASTR CSS --}}
     <link rel="stylesheet" href="{{ asset('admin/assets/toastr.min.css') }}">
@@ -52,7 +56,14 @@
 
 
             <!-- Main Content -->
-            @yield('content')
+            <div class="main-content">
+                <section class="section">
+                    <div class="section-header">
+                        <h1>@yield('page-title', 'Dashboard')</h1>
+                    </div>
+                    @yield('content')
+                </section>
+            </div>
             <footer class="main-footer">
                 <div class="footer-left">
                     Copyright &copy; 2018 <div class="bullet"></div> Design By <a href="https://nauval.in/">Muhamad
@@ -81,16 +92,21 @@
     <script src="{{ asset('admin/assets/modules/summernote/summernote-bs4.js') }}"></script>
     <script src="{{ asset('admin/assets/modules/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="{{ asset('admin/assets/js/page/index.js') }}"></script>
+
 
     <!-- Template JS File -->
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>
     <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
 
 
-
     <script src="{{ asset('admin/assets/toastr.min.js') }}"></script>
+
 
 
     {{-- Image Picker --}}
@@ -105,6 +121,62 @@
             no_label: false, // Default: false
             success_callback: null // Default: null
         });
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $(document).ready(function() {
+
+            $('body').on('click', '.delete-item', function(e) {
+
+                e.preventDefault();
+                let url = $(this).attr('href');
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                                method: "DELETE",
+                                url: url,
+
+                                success: function(response) {
+                                    if (response.status === 'success') {
+                                        toastr.success(response.message);
+
+                                        window.location.reload();
+
+                                    } else if (response.status === 'error') {
+                                        toastr.error(response.message);
+                                    }
+                                },
+                                error: function(error) {
+                                    console.error(error);
+                                },
+                            },
+
+                        )
+
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                    }
+                });
+            })
+
+        });
     </script>
 
     <script>
@@ -115,7 +187,12 @@
         @endif
     </script>
 
-    @stack('script')
+
+
+
+
+
+    @stack('scripts')
 </body>
 
 </html>

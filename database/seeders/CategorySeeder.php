@@ -20,7 +20,7 @@ class CategorySeeder extends Seeder
             'Sportswear' => ['Running Shoes', 'Sports Apparel', 'Fitness Accessories'],
             'Innerwears' => ['Underwear', 'Socks'],
             'Bags' => ['Backpacks', 'Handbags', 'Travel Bags'],
-            // Add more parent categories and their child categories as needed
+           
         ];
 
         foreach ($categories as $parentName => $childNames) {

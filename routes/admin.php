@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\CategoryGroupController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
@@ -11,4 +12,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::put('profile/profile', [AdminProfileController::class, 'updateProfile'])->name('profile.profile.update');
     Route::put('profile/password', [AdminProfileController::class, 'updatePassword'])->name('profile.password.update');
     
+
+    Route::resource('category-group', CategoryGroupController::class);
 });
+
