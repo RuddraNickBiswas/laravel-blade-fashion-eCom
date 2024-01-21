@@ -25,6 +25,9 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Category> $children
  * @property-read int|null $children_count
  * @property-read Category|null $parent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ * @property-read int|null $products_count
+ * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
@@ -50,6 +53,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Category> $categories
  * @property-read int|null $categories_count
+ * @method static \Database\Factories\CategoryGroupFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|CategoryGroup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CategoryGroup newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CategoryGroup query()
@@ -60,6 +64,88 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|CategoryGroup whereUpdatedAt($value)
  */
 	class CategoryGroup extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Product
+ *
+ * @property-read \App\Models\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductColor> $colors
+ * @property-read int|null $colors_count
+ * @property-read \App\Models\ProductDetails|null $details
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductGalery> $galeries
+ * @property-read int|null $galeries_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductOption> $options
+ * @property-read int|null $options_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductColor> $productColors
+ * @property-read int|null $product_colors_count
+ * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ */
+	class Product extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductColor
+ *
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor query()
+ */
+	class ProductColor extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductDetails
+ *
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails query()
+ */
+	class ProductDetails extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductGalery
+ *
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery query()
+ */
+	class ProductGalery extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductOption
+ *
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption query()
+ */
+	class ProductOption extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductSize
+ *
+ * @property-read \App\Models\Product|null $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize query()
+ */
+	class ProductSize extends \Eloquent {}
 }
 
 namespace App\Models{

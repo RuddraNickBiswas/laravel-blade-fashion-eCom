@@ -266,7 +266,8 @@
                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                          class="fas fa-columns"></i> <span>Category</span></a>
                  <ul class="dropdown-menu">
-                     <li><a class="nav-link" href="layout-default.html">Create Category Group</a></li>
+                     <li><a class="nav-link" href=" {{ route('admin.category-group.index') }} ">Category Target Group</a></li>
+                     <li><a class="nav-link" href=" {{ route('admin.category.index') }} ">Category</a></li>
                      <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
                      <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                  </ul>
