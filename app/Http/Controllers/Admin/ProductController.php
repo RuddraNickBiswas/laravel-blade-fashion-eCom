@@ -8,11 +8,13 @@ use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
+    use FileUploadTrait;
     /**
      * Display a listing of the resource.
      */
@@ -38,6 +40,10 @@ class ProductController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($request->input('name'));
 
+        $imagePath = $this->uploadImage($request, 'thumbnail', NULL, "/uploads/image/product");
+
+        $data['thumbnail_path'] = $imagePath;
+        unset($data['thumbnail']);
         $product = Product::create($data);
 
         toastr()->success('product created complete');
@@ -60,7 +66,8 @@ class ProductController extends Controller
     {
 
         $categories = Category::get();
-        return view('admin.product.edit', compact('product', 'categories'));
+        $galleries = $product->galleries;
+        return view('admin.product.edit', compact('product', 'categories', 'galleries'));
     }
 
     /**
@@ -69,9 +76,20 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, Product $product)
     {
         $data = $request->validated();
+
         $data['slug'] = Str::slug($request->input('name'));
 
-        $product->update($data);
+        if ($request->hasFile('thumbnail')) {
+
+            $imagePath = $this->uploadImage($request, 'thumbnail', NULL, "/uploads/image/product");
+
+            $data['thumbnail_path'] = $imagePath;
+            unset($data['thumbnail']);
+            $product->update($data);
+        } else {
+            unset($data['thumbnail']);
+            $product->update($data);
+        }
 
         toastr()->success('product update complete');
 

@@ -106,6 +106,7 @@
         </form>
 
     </div>
+    @endsection
     @push('script')
         <script type="text/javascript">
             $(document).ready(function() {
@@ -119,4 +120,3 @@
             });
         </script>
     @endpush
-@endsection

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 trait FileUploadTrait {
     function uploadImage(Request $request, $inputName, $oldPath = NULL, $path = '/uploads'){
 
+// will add image formater packege for formating syze 
         if($request->hasFile($inputName)){
             $image = $request->{$inputName};
             $ext = $image->getClientOriginalExtension();

@@ -23,7 +23,7 @@ class UserProfileUpdateRequest extends FormRequest
     {
 
         return [
-            'avater' => ['nullable' ,'image', 'max:3000'],
+           
             'name' => ['required','max:50'],
             'email' => ['required','unique:users,email,' .auth()->user()->id],
         ];
