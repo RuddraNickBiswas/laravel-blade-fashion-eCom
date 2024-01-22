@@ -70,12 +70,23 @@ namespace App\Models{
 /**
  * App\Models\Product
  *
- * @property-read \App\Models\Category|null $category
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string $description
+ * @property int $qty
+ * @property float $price
+ * @property float $discounted_price
+ * @property int $category_id
+ * @property int $is_visible
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Category $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductColor> $colors
  * @property-read int|null $colors_count
  * @property-read \App\Models\ProductDetails|null $details
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductGalery> $galeries
- * @property-read int|null $galeries_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductGallery> $galleries
+ * @property-read int|null $galleries_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductOption> $options
  * @property-read int|null $options_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductColor> $productColors
@@ -84,6 +95,17 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscountedPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereIsVisible($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  */
 	class Product extends \Eloquent {}
 }
@@ -92,10 +114,22 @@ namespace App\Models{
 /**
  * App\Models\ProductColor
  *
- * @property-read \App\Models\Product|null $product
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductColor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductColor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductColor query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductColor whereUpdatedAt($value)
  */
 	class ProductColor extends \Eloquent {}
 }
@@ -104,34 +138,56 @@ namespace App\Models{
 /**
  * App\Models\ProductDetails
  *
- * @property-read \App\Models\Product|null $product
+ * @property int $id
+ * @property string $description
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereUpdatedAt($value)
  */
 	class ProductDetails extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
- * App\Models\ProductGalery
+ * App\Models\ProductGallery
  *
- * @property-read \App\Models\Product|null $product
- * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ProductGalery query()
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery query()
  */
-	class ProductGalery extends \Eloquent {}
+	class ProductGallery extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * App\Models\ProductOption
  *
- * @property-read \App\Models\Product|null $product
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductOption query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductOption whereUpdatedAt($value)
  */
 	class ProductOption extends \Eloquent {}
 }
@@ -140,10 +196,22 @@ namespace App\Models{
 /**
  * App\Models\ProductSize
  *
- * @property-read \App\Models\Product|null $product
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductSize newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductSize newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductSize query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductSize whereUpdatedAt($value)
  */
 	class ProductSize extends \Eloquent {}
 }

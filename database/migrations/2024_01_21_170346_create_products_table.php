@@ -15,13 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('description');
+            $table->string('thumbnail_path');
+            $table->text('description');
             $table->integer('qty');
             $table->double('price');
             $table->double('discounted_price');
             $table->foreignId('category_id')
                 ->constrained('categories') 
                 ->cascadeOnDelete();
+            $table->boolean('is_visible')->default(false);
 
             $table->timestamps();
         });

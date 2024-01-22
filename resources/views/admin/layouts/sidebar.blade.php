@@ -268,11 +268,16 @@
                  <ul class="dropdown-menu">
                      <li><a class="nav-link" href=" {{ route('admin.category-group.index') }} ">Category Target Group</a></li>
                      <li><a class="nav-link" href=" {{ route('admin.category.index') }} ">Category</a></li>
-                     <li><a class="nav-link" href="layout-transparent.html">Transparent Sidebar</a></li>
-                     <li><a class="nav-link" href="layout-top-navigation.html">Top Navigation</a></li>
                  </ul>
              </li>
-
+             <li class="dropdown">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                        class="fas fa-columns"></i> <span>Product</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href=" {{ route('admin.product.index') }} ">Product</a></li>
+                    <li><a class="nav-link" href=" {{ route('admin.product.create') }} ">Product Create</a></li>
+                </ul>
+            </li>
 
              {{-- <li class="dropdown">
                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
@@ -285,12 +290,6 @@
              </li> --}}
          </ul>
 
-
-
-         <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                 <i class="fas fa-rocket"></i> Documentation
-             </a>
-         </div>
+ 
      </aside>
  </div>

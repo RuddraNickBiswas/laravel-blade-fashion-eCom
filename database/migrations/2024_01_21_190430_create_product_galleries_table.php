@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_galeries', function (Blueprint $table) {
+        Schema::create('product_galleries', function (Blueprint $table) {
             $table->id();
             $table->string('path');
             $table->foreignId('product_id')
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_galeries');
+        Schema::dropIfExists('product_galleries');
     }
 };

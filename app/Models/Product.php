@@ -26,9 +26,9 @@ class Product extends Model
         return $this->hasOne(ProductDetails::class);
     }
 
-    public function galeries()
+    public function galleries()
     {
-        return $this->hasMany(ProductGalery::class);
+        return $this->hasMany(ProductGallery::class);
     }
 
     public function options()

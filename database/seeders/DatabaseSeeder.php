@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Product;
+use Database\Factories\ProductFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,5 +26,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             CategoryGroupSeeder::class,
         ]);
+
+        Product::factory()->withRandomThumbnail()->withRandomGallerys()->count(4)->create();
     }
 }
