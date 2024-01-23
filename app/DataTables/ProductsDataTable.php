@@ -27,7 +27,14 @@ class ProductsDataTable extends DataTable
             $delete = "<a href='" . route('admin.product.destroy', $query->id) . "' class='btn btn-danger delete-item' > <i class='fas fa-trash'></i> </a>";
 
             return $edit . $delete;
-        })->rawColumns(['action'])
+        })
+        ->addColumn('thumbnail_path', function($query){
+            $image = "<img class='img-fluid' style='height: 70px;' src='" . asset($query->thumbnail_path) . " ' >";
+
+            return $image;
+        })
+        ->rawColumns(['action' ,'thumbnail_path'])
+        
             ->setRowId('id');
     }
 
@@ -68,9 +75,11 @@ class ProductsDataTable extends DataTable
     {
         return [
             Column::make('id'),
+            Column::make('thumbnail_path'),
             Column::make('name'),
             Column::make('price'),
             Column::make('discounted_price'),
+            Column::make('group'),
             Column::make('qty'),
             Column::make('is_visible'),
             Column::computed('action')

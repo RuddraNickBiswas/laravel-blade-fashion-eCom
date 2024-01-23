@@ -67,7 +67,9 @@ class ProductController extends Controller
 
         $categories = Category::get();
         $galleries = $product->galleries;
-        return view('admin.product.edit', compact('product', 'categories', 'galleries'));
+        $sizes  = $product->sizes;
+        $details  = $product->details;
+        return view('admin.product.edit', compact('product', 'categories', 'galleries', 'sizes', 'details'));
     }
 
     /**

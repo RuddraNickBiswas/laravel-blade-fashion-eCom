@@ -31,12 +31,12 @@
 
     <link rel="stylesheet" href="{{ asset('frontend/css/colors.php?color=fd79a8') }}" type="text/css" />
 
-        	
+
 
     {{-- TOASTR --}}
     <link rel="stylesheet" href="{{ asset('admin/assets/toastr.min.css') }}">
 
-    @stack('style')
+    @stack('styles')
 
     <!-- Document Title
  ============================================= -->
@@ -156,6 +156,16 @@
     <script src="{{ asset('frontend/toastr.min.js') }}"></script>
 
     <script>
+        jQuery(document).ready(function($) {
+
+            $('#linked-to-gallery a').click(function() {
+                var imageLink = $(this).attr('data-image');
+                jQuery('#oc-images').trigger('to.owl.carousel', [Number(imageLink) - 1, 300, true]);
+                return false;
+            });
+
+        });
+
         @if ($errors->any())
             @foreach ($errors->all() as $error)
                 toastr.error("{{ $error }}")
@@ -163,7 +173,7 @@
         @endif
     </script>
 
-    @stack('script')
+    @stack('scripts')
 </body>
 
 </html>

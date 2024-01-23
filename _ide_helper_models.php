@@ -73,10 +73,12 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $slug
+ * @property string $thumbnail_path
  * @property string $description
  * @property int $qty
  * @property float $price
- * @property float $discounted_price
+ * @property float|null $discounted_price
+ * @property string $group
  * @property int $category_id
  * @property int $is_visible
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -87,10 +89,11 @@ namespace App\Models{
  * @property-read \App\Models\ProductDetails|null $details
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductGallery> $galleries
  * @property-read int|null $galleries_count
+ * @property-read mixed $sale
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductOption> $options
  * @property-read int|null $options_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductColor> $productColors
- * @property-read int|null $product_colors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ProductSize> $sizes
+ * @property-read int|null $sizes_count
  * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
@@ -99,12 +102,14 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscountedPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereGroup($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereIsVisible($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereQty($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereThumbnailPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
  */
 	class Product extends \Eloquent {}
@@ -139,7 +144,7 @@ namespace App\Models{
  * App\Models\ProductDetails
  *
  * @property int $id
- * @property string $description
+ * @property string $data
  * @property int $product_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -148,7 +153,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails query()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereData($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ProductDetails whereUpdatedAt($value)
@@ -160,10 +165,20 @@ namespace App\Models{
 /**
  * App\Models\ProductGallery
  *
+ * @property int $id
+ * @property string $path
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery wherePath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ProductGallery whereUpdatedAt($value)
  */
 	class ProductGallery extends \Eloquent {}
 }

@@ -26,13 +26,14 @@ class ProductFactory extends Factory
         File::cleanDirectory(public_path($this->imageStoringPath));
 
         return [
-            'name' => fake()->word(),
+            'name' => fake()->words(5, true),
             'slug' => fake()->slug(),
             'thumbnail_path' => 'soon to be changed',
             'description' => fake()->paragraph(),
             'qty'  => fake()->numberBetween(5, 15),
             'price' => fake()->randomFloat(2, 20, 100),
-            'discounted_price' => fake()->randomFloat(2, 5, 50),
+            'group' => fake()->randomElement(['man', 'women']),
+            'discounted_price' =>  fake()->boolean(40) ?  fake()->randomFloat(2, 5, 50) : NULL ,
             'category_id' => Category::inRandomOrder()->first(),
             'is_visible' => fake()->boolean(),
         ];
@@ -50,7 +51,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product) {
 
-            $imagePath = $this->getRandomImagesFromFolder(1)[0];
+            $imagePath = $this->getRandomImagesFromFolder(100)[rand(1,10)];
 
             $imageName = Str::random(10) . '.' . pathinfo($imagePath, PATHINFO_EXTENSION);
             $destinationPath = public_path($this->imageStoringPath . $imageName);
@@ -89,5 +90,44 @@ class ProductFactory extends Factory
                 ]);
             }
         });
+    }
+
+
+    public function withSizes() {
+        return $this->afterCreating(function (Product $product){
+
+          $sizes =  ['S', 'M', 'L', 'XL', 'XXL'];
+
+            foreach ($sizes as $key => $size) {
+                $product->sizes()->create([
+                    "name" => $size,
+                    "slug" => Str::slug($size),
+                ]);
+            }
+        });
+    }
+
+    public function withDetails(){
+
+        return $this->afterCreating(function (Product $product){
+            $product->details()->create([
+                'data' => '<p> </p><h4>Details :<br></h4><p>Spice up your style with the Alisa Maxi Dress! Flaunting a sweetheart 
+                            neckline, thin adjustable shoulder straps and a tiered skirt, this dress
+                             turns heads with its bold feminine flair and curve-loving design.<br>
+                            <br>
+                            Key Features Include:<br>
+                            - Sweetheart neckline <br>
+                            - Thin adjustable shoulder straps<br>
+                            -Ruched drawcord tie front detail<br>
+                            - Shirred bodice with frilled edge<br>
+                            - Tiered skirt<br>
+                            - Fully lined<br>
+                            - Maxi length<br>
+                            <br>
+                            Complement with neutral-toned strappy heels.<br><br></p><h4>Fabric : </h4><h4><br><strong>Content</strong> </h4><div class="content">Main: 80% Viscose, 20% Nylon
+                            Lining: 100% Viscose</div><br>  <strong> Care</strong> <div class="care">Cold machine wash • Do not bleach • Do not tumble dry • Cool iron •  Do not dry clean</div>'
+            ]);
+        });
+        
     }
 }

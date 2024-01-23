@@ -2,6 +2,11 @@
 
 @section('page-title', 'product edit')
 
+
+@push('styles')
+      <link rel="stylesheet" href=" {{ asset('frontend/assets/modules/summernote/summernote-bs4.css') }} ">
+@endpush
+
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
@@ -31,78 +36,29 @@
                             <a class="nav-link" id="size-tab" data-toggle="tab" href="#size" role="tab"
                                 aria-controls="contact" aria-selected="false">Size</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab"
+                                aria-controls="contact" aria-selected="false">Large Details</a>
+                        </li>
                     </ul>
 
                     {{-- Tab Content --}}
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade " id="general" role="tabpanel" aria-labelledby="general-tab">
+                        <div class="tab-pane fade  active show" id="general" role="tabpanel" aria-labelledby="general-tab">
 
-                            <form action="{{ route('admin.product.update', $product->id) }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                @method('put')
-                                <div class="form-group">
-                                    <label>Product Thumbnail</label>
-                                    <div class="d-flex align-items-end mb-2">
-                                        <img id="showImage" src="{{ asset($product->thumbnail_path) }}" width="250"
-                                            class="rounded me-2">
-                                        {{-- <img id="showImage" src="{{ auth()->user()->avater }}" width="150" class="rounded d-block"> --}}
-                                    </div>
-                                    <input class="form-control " name="thumbnail" type="file" id="image" />
-                                </div>
-                                <div class="form-group">
-                                    <label>Name</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $product->name }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>description</label>
-                                    <textarea type="text" name="description" class="form-control"> {{ $product->description }}</textarea>
-                                </div>
+                            @include('admin.product.edit-tabs.general-tab')
 
-                                <div class="row form-group">
-                                    <div class="col-md-4">
-                                        <label for="price">price</label>
-                                        <input type="number" class="form-control" name="price"
-                                            value="{{ $product->price }}">
-                                    </div>
-                                    <div class="col-md-4">
-
-                                        <label for="discounted_price">Discounted Price (optional)</label>
-                                        <input type="number" class="form-control" name="discounted_price"
-                                            value="{{ $product->discounted_price }}">
-                                    </div>
-
-                                    <div class="col-md-4">
-
-                                        <label for="qty">QTY</label>
-                                        <input type="number" class="form-control" name="qty"
-                                            value="{{ $product->qty }}">
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <label>Category</label>
-                                    <select name="category_id" class="form-control select2">
-                                        {{-- <option value="" {{ is_null($product->category_id) ? 'selected' : '' }}>No Parent Category --}}
-                                        </option>
-                                        @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}"
-                                                {{ $category->id == $product->category_id ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <button class="btn btn-primary" type="submit">save</button>
-                            </form>
                         </div>
 
-                        <div class="tab-pane fade active show" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+                        <div class="tab-pane fade " id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
                             @include('admin.product.edit-tabs.gallery-tab')
                         </div>
-                        <div class="tab-pane fade" id="size" role="tabpanel" aria-labelledby="size-tab">
+                        <div class="tab-pane fade  " id="size" role="tabpanel" aria-labelledby="size-tab">
+                            @include('admin.product.edit-tabs.size-tab')
+                        </div>
 
+                        <div class="tab-pane fade  " id="details" role="tabpanel" aria-labelledby="details-tab">
+                            @include('admin.product.edit-tabs.large-details-tab')
                         </div>
                     </div>
                 </div>
@@ -112,6 +68,9 @@
 @endsection
 
 @push('scripts')
+
+  <script src=" {{ asset('frontend/assets/modules/summernote/summernote-bs4.js') }}  "></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('#image').change(function(e) {
@@ -123,7 +82,7 @@
             });
         });
     </script>
-       <script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function() {
             $('#Gimage').change(function(e) {
                 var reader = new FileReader();

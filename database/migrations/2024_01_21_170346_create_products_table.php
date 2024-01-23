@@ -19,7 +19,8 @@ return new class extends Migration
             $table->text('description');
             $table->integer('qty');
             $table->double('price');
-            $table->double('discounted_price');
+            $table->double('discounted_price')->nullable();
+            $table->enum('group', ['man','women', 'all'])->default('all');
             $table->foreignId('category_id')
                 ->constrained('categories') 
                 ->cascadeOnDelete();

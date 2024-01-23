@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\frontend\HomePageController;
-use App\Http\Controllers\frontend\UserAccountController;
+use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +23,8 @@ Route::group(['prefix' => 'dashboard'], function () {
     });
  
 })->middleware(['auth', 'verified']);
+
+// In your routes/web.php
+Route::controller(ProductController::class)->group(function() {
+      Route::get('/product/{slug}' , 'show')->name('product.show');
+});

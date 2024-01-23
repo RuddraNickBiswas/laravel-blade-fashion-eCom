@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\frontend;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\CategoryGroup;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -14,7 +15,8 @@ class HomePageController extends Controller
         
         $categories = Category::with('children')->whereNull('parent_id')->get();
 
+        $mansProducts = Product::where('group' ,'man')->orWhere('group' , 'all')->take(12)->get();
        
-        return view('frontend.home.index' );
+        return view('frontend.home.index', compact('mansProducts') );
     }
 }

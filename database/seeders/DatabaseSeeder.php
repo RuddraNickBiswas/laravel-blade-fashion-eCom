@@ -27,6 +27,12 @@ class DatabaseSeeder extends Seeder
             CategoryGroupSeeder::class,
         ]);
 
-        Product::factory()->withRandomThumbnail()->withRandomGallerys()->count(4)->create();
+        Product::factory()
+            ->withRandomThumbnail()
+            ->withRandomGallerys()
+            ->withSizes()
+            ->withDetails()
+            ->count(20)
+            ->create();
     }
 }

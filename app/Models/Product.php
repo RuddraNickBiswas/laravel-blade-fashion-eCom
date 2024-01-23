@@ -11,15 +11,21 @@ class Product extends Model
 
     protected $guarded = [];
 
+    public function getSaleAttribute()
+       {
+           return !is_null($this->attributes['discounted_price']);
+       }
 
     public function category()
     {
-        return $this->belongsTo(category::class);
+        return $this->belongsTo(Category::class);
     }
 
-    public function productColors()
+
+    
+    public function sizes()
     {
-        return $this->hasMany(ProductColor::class);
+        return $this->hasMany(ProductSize::class);
     }
     public function details()
     {
