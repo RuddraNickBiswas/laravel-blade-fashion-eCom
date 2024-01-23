@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\User\UserProfileController;
@@ -15,7 +16,7 @@ Route::get('/' , [HomePageController::class , 'index'])->name('home');
 
 
 Route::group(['prefix' => 'dashboard'], function () {
-
+    
     Route::controller(UserProfileController::class)->group(function() {
         Route::get('/profile' , 'index')->name('profile');
         Route::put('/profile' , 'profileUpdate')->name('profile.update');
@@ -26,5 +27,9 @@ Route::group(['prefix' => 'dashboard'], function () {
 
 // In your routes/web.php
 Route::controller(ProductController::class)->group(function() {
-      Route::get('/product/{slug}' , 'show')->name('product.show');
+    Route::get('/product/{slug}' , 'show')->name('product.show');
+    Route::get('load-product-modal/{product}' ,'loadProductModal')->name('load-product-modal');
 });
+
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
+Route::get('/get-cart-product', [CartController::class, 'getCartProduct'])->name('get-cart-product');

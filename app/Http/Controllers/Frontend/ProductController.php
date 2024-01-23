@@ -26,4 +26,12 @@ class ProductController extends Controller
             'randomProducts'
         ));
     }
+
+    public function loadProductModal(Product $product){
+
+        $product->load('sizes');
+      
+        return view('frontend.layouts.ajax.product-popup-modal', compact('product') )->render();
+
+    }
 }

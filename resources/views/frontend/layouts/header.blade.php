@@ -96,43 +96,46 @@
                       <!-- Top Cart
        ============================================= -->
                       <div id="top-cart"
-                              class="header-misc-icon d-none d-sm-block">
-                              <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i><span
-                                      class="top-cart-number">5</span></a>
+                              class="header-misc-icon d-none d-sm-block" >
+                              <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i>
+                                @if (count(Cart::content()))
+                                <span id="cartItemCount" class="top-cart-number">{{ count(Cart::content()) }}</span></a>
+                                @endif
                               <div class="top-cart-content">
                                   <div class="top-cart-title">
                                       <h4>Shopping Cart</h4>
                                   </div>
-                                  <div class="top-cart-items">
-                                      <div class="top-cart-item">
-                                          <div class="top-cart-item-image">
-                                              <a href="#"><img src="images/shop/small/1.jpg"
-                                                      alt="Blue Round-Neck Tshirt" /></a>
-                                          </div>
-                                          <div class="top-cart-item-desc">
-                                              <div class="top-cart-item-desc-title">
-                                                  <a href="#">Blue Round-Neck Tshirt with a Button</a>
-                                                  <span class="top-cart-item-price d-block">$19.99</span>
+                                  <div id="headerCartContent" class="top-cart-items scrollable" >
+
+                                    
+                                    @foreach (Cart::content() as $cartProduct)
+                                        
+                                    <div class="top-cart-item">
+                                        <div class="top-cart-item-image">
+                                            <a href="#"><img src=" {{ asset($cartProduct->options->product_info['thumbnail_path']) }} "
+                                                    alt="Blue Round-Neck Tshirt" /></a>
+                                        </div>
+                                        <div class="top-cart-item-desc">
+                                            <div class="top-cart-item-desc-title">
+                                                <a href="{{ route('product.show',$cartProduct->options->product_info['slug'] ) }}">{{ $cartProduct->name }}</a>
+                                                <div class="d-flex ">
+                                                    <span class="top-cart-item-price d-block me-2" >${{ $cartProduct->price }} </span>
+                                                    <span class="top-cart-item-price d-block">{{  $cartProduct->options->size['name']  }}</span>
+                                                  </div>
                                               </div>
-                                              <div class="top-cart-item-quantity">x 2</div>
-                                          </div>
-                                      </div>
-                                      <div class="top-cart-item">
-                                          <div class="top-cart-item-image">
-                                              <a href="#"><img src="images/shop/small/6.jpg"
-                                                      alt="Light Blue Denim Dress" /></a>
-                                          </div>
-                                          <div class="top-cart-item-desc">
-                                              <div class="top-cart-item-desc-title">
-                                                  <a href="#">Light Blue Denim Dress</a>
-                                                  <span class="top-cart-item-price d-block">$24.99</span>
+                                              <div class="d-flex flex-column " >
+                                                  <div class="top-cart-item-quantity">x {{ $cartProduct->qty }}</div>
+                                                  <a href="javascript:;" onclick="removeProductFromSidebar('{{ $cartProduct->rowId }}')" class="color"> <i class="icon-line2-close "></i></a> 
                                               </div>
-                                              <div class="top-cart-item-quantity">x 3</div>
-                                          </div>
-                                      </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+
+
                                   </div>
                                   <div class="top-cart-action">
-                                      <span class="top-checkout-price">$114.95</span>
+                                      <span id="headerCartTotal" class="top-checkout-price">$ {{ cartTotal() }}</span>
                                       <a href="#" class="button button-3d button-small m-0">View Cart</a>
                                   </div>
                               </div>

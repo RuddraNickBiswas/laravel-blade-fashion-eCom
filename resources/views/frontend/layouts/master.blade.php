@@ -125,20 +125,22 @@
         {{-- Top Bar and header --}}
         @include('frontend.layouts.header')
         {{-- Top Bar and header --}}
+        @include('frontend.modal.product-modal')
 
         @yield('content')
 
-
+        {{-- USING AJAS FUNCTION CALL TO TRIGGER THIS MODEL loadProductModail + id --}}
         @include('frontend.layouts.footer')
 
     </div><!-- #wrapper end -->
-
+    
     <!-- Go To Top
- ============================================= -->
-    <div id="gotoTop" class="icon-line-arrow-up"></div>
-
-    <!-- JavaScripts
- ============================================= -->
+        ============================================= -->
+        <div id="gotoTop" class="icon-line-arrow-up"></div>
+        
+        <!-- JavaScripts
+            ============================================= -->
+    @include('frontend.layouts.scripts')
     <script src="{{ asset('frontend/js/jquery.js') }}"></script>
     <script src="{{ asset('frontend/js/plugins.min.js') }}"></script>
 
@@ -172,6 +174,7 @@
             @endforeach
         @endif
     </script>
+
 
     @stack('scripts')
 </body>
