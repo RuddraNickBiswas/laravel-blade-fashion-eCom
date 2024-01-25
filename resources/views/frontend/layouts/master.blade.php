@@ -133,19 +133,22 @@
         @include('frontend.layouts.footer')
 
     </div><!-- #wrapper end -->
-    
+
     <!-- Go To Top
         ============================================= -->
-        <div id="gotoTop" class="icon-line-arrow-up"></div>
-        
-        <!-- JavaScripts
+    <div id="gotoTop" class="icon-line-arrow-up"></div>
+
+    <!-- JavaScripts
             ============================================= -->
-    @include('frontend.layouts.scripts')
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('frontend/js/jquery.js') }}"></script>
     <script src="{{ asset('frontend/js/plugins.min.js') }}"></script>
 
     <!-- Footer Scripts
- ============================================= -->
+                ============================================= -->
     <script src="{{ asset('frontend/js/functions.js') }}"></script>
 
 
@@ -156,6 +159,8 @@
     {{-- User Script	 --}}
     {{-- TOASTR --}}
     <script src="{{ asset('frontend/toastr.min.js') }}"></script>
+
+    @include('frontend.layouts.scripts')
 
     <script>
         jQuery(document).ready(function($) {

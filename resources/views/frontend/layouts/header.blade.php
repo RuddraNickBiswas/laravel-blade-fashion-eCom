@@ -70,9 +70,9 @@
                   <!-- Logo
       ============================================= -->
                   <div id="logo" class="me-lg-4">
-                      <a href="{{ route('home') }}" class="standard-logo"><img src="demos/shop/images/logo.png"
+                      <a href="{{ route('home') }}" class="standard-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1200px-React_Logo_SVG.svg.png"
                               alt="Canvas Logo"></a>
-                      <a href="{{ route('home') }}" class="retina-logo"><img src="demos/shop/images/logo@2x.png"
+                      <a href="{{ route('home') }}" class="retina-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1200px-React_Logo_SVG.svg.png"
                               alt="Canvas Logo"></a>
                   </div><!-- #logo end -->
 
@@ -98,9 +98,9 @@
                       <div id="top-cart"
                               class="header-misc-icon d-none d-sm-block" >
                               <a href="#" id="top-cart-trigger"><i class="icon-line-bag"></i>
-                                @if (count(Cart::content()))
-                                <span id="cartItemCount" class="top-cart-number">{{ count(Cart::content()) }}</span></a>
-                                @endif
+                                {{-- @if (count(Cart::content()))
+                                @endif --}}
+                                <span id="cartItemCount"  class="top-cart-number">{{ count(Cart::content()) }}</span></a>
                               <div class="top-cart-content">
                                   <div class="top-cart-title">
                                       <h4>Shopping Cart</h4>
@@ -136,7 +136,7 @@
                                   </div>
                                   <div class="top-cart-action">
                                       <span id="headerCartTotal" class="top-checkout-price">$ {{ cartTotal() }}</span>
-                                      <a href="#" class="button button-3d button-small m-0">View Cart</a>
+                                      <a href="{{ route('cart.show') }}" class="button button-3d button-small m-0">View Cart</a>
                                   </div>
                               </div>
               </div><!-- #top-cart end -->

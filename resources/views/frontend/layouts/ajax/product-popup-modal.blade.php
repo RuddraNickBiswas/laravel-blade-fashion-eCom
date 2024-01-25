@@ -49,8 +49,8 @@
 
  <div class="modal-footer w-100 d-flex">
 
-     <h4 class="me-auto"> Total: <span class="color total-product-price">$234</span> </h4>
-     <a type="button" class="button button-rounded ">Details</a>
+     <h4 class="me-auto"> Total: <span class="color total-product-price">$ {{ $product->price }} </span> </h4>
+     <a type="button" href="{{ route('product.show' , $product->slug) }}" class="button button-rounded ">Details</a>
      <button type="button" id="addToCartBtn" class="button button-rounded">Add to cart</button>
  </div>
 

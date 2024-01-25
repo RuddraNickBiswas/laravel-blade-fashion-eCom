@@ -73,7 +73,7 @@
                                                         {{ $product->discounted_price }} </ins></div>
                                                 <!-- Product Single - Price End -->
                                             @else
-                                                <div class="product-price"><del>$ {{ $product->price }} </del></div>
+                                                <div class="product-price"><ins>$ {{ $product->price }} </ins></div>
                                                 <!-- Product Single - Price End -->
                                             @endif
 
@@ -93,16 +93,17 @@
 
                                         <!-- Product Single - Quantity & Cart Button
                                         ============================================= -->
-                                        <form class="cart mb-0 d-flex justify-content-between align-items-center"
-                                            method="post" enctype='multipart/form-data'>
-                                            <div class="quantity clearfix">
-                                                <input type="button" value="-" class="minus">
+                                        <div class="cart mb-0 d-flex justify-content-between align-items-center"
+                                            >
+                                            <div class="d-flex justify-content-between  text-center w-100 align-items-center">
+                                                {{-- <input type="button" value="-" class="minus">
                                                 <input type="number" step="1" min="1" name="quantity"
                                                     value="1" title="Qty" class="qty" />
-                                                <input type="button" value="+" class="plus">
+                                                <input type="button" value="+" class="plus"> --}}
+                                                <div >  QTY : <span class="color"> {{ $product->qty }} left </span>  </div>
                                             </div>
-                                            <button type="submit" class="add-to-cart button m-0">Add to cart</button>
-                                        </form><!-- Product Single - Quantity & Cart Button End -->
+                                            <button onclick="loadProductModal({{ $product->id }})" class="add-to-cart button m-0">Add to cart</button>
+                                        </div><!-- Product Single - Quantity & Cart Button End -->
 
                                         <div class="line"></div>
 
@@ -272,9 +273,9 @@
                                                             <div class="entry-meta no-separator">
                                                                 <ul>
                                                                     @if ($recentProduct->discounted_price)
-                                                                        <li><del class="me-1 color"> $
-                                                                                {{ $recentProduct->discounted_price }}
-                                                                            </del> <ins> ${{ $recentProduct->price }}
+                                                                        <li><del class="me-1 "> $
+                                                                                {{ $recentProduct->price }}
+                                                                            </del> <ins class="color"> ${{ $recentProduct->discounted_price }}
                                                                             </ins></li>
                                                                     @else
                                                                         <li class="color"><ins> $

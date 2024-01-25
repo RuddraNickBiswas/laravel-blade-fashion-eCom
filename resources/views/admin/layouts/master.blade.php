@@ -161,6 +161,11 @@
 
                                         window.location.reload();
 
+                                        Swal.fire({
+                                            title: "Deleted!",
+                                            text: "Your file has been deleted.",
+                                            icon: "success"
+                                        });
                                     } else if (response.status === 'error') {
                                         toastr.error(response.message);
                                     }
@@ -172,11 +177,6 @@
 
                         )
 
-                        // Swal.fire({
-                        //     title: "Deleted!",
-                        //     text: "Your file has been deleted.",
-                        //     icon: "success"
-                        // });
                     }
                 });
             })
