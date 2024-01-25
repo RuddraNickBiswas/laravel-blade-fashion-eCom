@@ -1,49 +1,56 @@
 <script>
-      $('body').on('click', '.delete-item', function(e) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-                e.preventDefault();
-                let url = $(this).attr('href');
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Yes, delete it!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
+    $('body').on('click', '.delete-item', function(e) {
 
-                        $.ajax({
-                                method: "DELETE",
-                                url: url,
+        e.preventDefault();
+        let url = $(this).attr('href');
 
-                                success: function(response) {
-                                    if (response.status === 'success') {
-                                        toastr.success(response.message);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-                                        window.location.reload();
+                $.ajax({
+                        method: "DELETE",
+                        url: url,
 
-                                        Swal.fire({
-                                            title: "Deleted!",
-                                            text: "Your file has been deleted.",
-                                            icon: "success"
-                                        });
-                                    } else if (response.status === 'error') {
-                                        toastr.error(response.message);
-                                    }
-                                },
-                                error: function(error) {
-                                    console.error(error);
-                                },
-                            },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                toastr.success(response.message);
 
-                        )
+                                window.location.reload();
 
-                    }
-                });
-            })
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            } else if (response.status === 'error') {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function(error) {
+                            console.error(error);
+                        },
+                    },
+
+                )
+
+            }
+        });
+    })
 
     function loadProductModal(productId) {
         $.ajax({
@@ -65,13 +72,12 @@
     function updateSidebarCart() {
         $.ajax({
             method: "GET",
-            url: '{{route("get-cart-product")}}',
+            url: '{{ route('get-cart-product') }}',
             data: '',
-            beforeSend: function() {
-            },
+            beforeSend: function() {},
             success: function(response) {
                 $('#headerCartContent').html(response);
-               let cartTotal = $('#cartTotal').val()
+                let cartTotal = $('#cartTotal').val()
                 let cartTotalCount = $('#cartTotalCountI').val()
                 $('#headerCartTotal').text("$" + cartTotal);
                 $('#cartItemCount').text(cartTotalCount);
@@ -82,25 +88,24 @@
                 toastr.error(xhr.responseJSON.message);
                 console.error(error)
             },
-            complete: function() {
-            }
+            complete: function() {}
         })
     }
-    function removeProductFromSidebar(rowId) {
-    $.ajax({
-        method: "GET",
-        url: "{{ route('remove-cart-product', ':rowId') }}".replace(":rowId", rowId),
-        success: function (response) {
-          if(response.status === 'success'){
-              toastr.success(response.message);
-              updateSidebarCart();
-          }
-        },
-        error: function (xhr, status, error) {
-       toastr.error(xhr.responseJSON.message); 
-            console.log(error);
-        }
-    });
-}
 
+    function removeProductFromSidebar(rowId) {
+        $.ajax({
+            method: "GET",
+            url: "{{ route('remove-cart-product', ':rowId') }}".replace(":rowId", rowId),
+            success: function(response) {
+                if (response.status === 'success') {
+                    toastr.success(response.message);
+                    updateSidebarCart();
+                }
+            },
+            error: function(xhr, status, error) {
+                toastr.error(xhr.responseJSON.message);
+                console.log(error);
+            }
+        });
+    }
 </script>

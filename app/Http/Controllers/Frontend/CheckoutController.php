@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    public function index () {
-
-        return view('frontend.product.checkout.index');
-    }
+   
 
 
-    public function show () {
+    public function create () {
 
-        return view('frontend.product.checkout.index');
+        return view('frontend.product.checkout.create');
     }
 }

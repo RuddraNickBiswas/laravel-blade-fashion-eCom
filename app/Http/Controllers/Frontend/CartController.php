@@ -6,14 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use PhpParser\Node\Stmt\TryCatch;
+use Response;
 
 class CartController extends Controller
 {
     function addToCart(Request $request)
     {
+        $product = Product::with(['sizes'])->findOrFail($request->productId);
+
+        if ($product->qty < $request->qty) {
+            throw ValidationException::withMessages(['Quantity is not available']);
+        }
+
         try {
 
-            $product = Product::with(['sizes'])->findOrFail($request->productId);
             $size = $product->sizes->whereIn('id', $request->size)->first();
 
 
@@ -79,13 +87,35 @@ class CartController extends Controller
         return view('frontend.product.cart.show');
     }
 
-    function destroy($rowId) {
 
-         Cart::remove($rowId);
+    function updateQty(Request $request)
+    {
 
-         toastr()->success('cart item deleted');
+        $cartProduct = Cart::get($request->rowId);
+        $product = Product::findOrFail($cartProduct->id);
+
+        if ($product->qty < $request->qty) {
+            
+            return response(['status' => 'error' , 'message' => 'quantity is not available', 'qty' => $cartProduct->qty]);
+        }
+
+        $rowId = $request->rowId;
+        try {
+            Cart::update($rowId, $request->qty);
+            return response(['cart_product_total' => cartProductTotal($rowId)], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['status' => 'error', 'something went wrong'], 500);
+        }
+    }
+
+    function destroy($rowId)
+    {
+
+        Cart::remove($rowId);
+
+        toastr()->success('cart item deleted');
 
         return redirect()->back();
-
     }
 }

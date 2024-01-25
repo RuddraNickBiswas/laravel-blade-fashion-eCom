@@ -41,16 +41,15 @@ Route::controller(CartController::class)->group(function () {
     //cart details page
     Route::get('/cart',  'show')->name('cart.show');
     Route::get('/cart/{rowId}',  'destroy')->name('cart.destroy');
-
-});
-
-
-Route::controller(CheckoutController::class)->group(function () {
-
-   
-    Route::get('/cart',  'show')->name('cart.show');
+    Route::post('/cart-update-qty',  'updateQty')->name('cart.update-qty');
     Route::get('/cart/{rowId}',  'destroy')->name('cart.destroy');
 
 });
 
-Route::resource('/checkout' ,CheckoutController::class )->only('index' ,'store');
+
+
+   
+
+
+
+Route::resource('/checkout' ,CheckoutController::class )->only('create' ,'store')->middleware('auth');
