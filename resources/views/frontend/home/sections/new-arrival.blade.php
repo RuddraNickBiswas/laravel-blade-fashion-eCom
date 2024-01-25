@@ -64,10 +64,10 @@
 								</div>
 								<div class="product-desc">
 									<div class="product-title mb-1"><h3><a href=" {{ route('product.show', $mansProduct->slug) }} "> {{ $mansProduct->name }} </a></h3></div>
-									@if ($mansProduct->discounted_price)
-									<div class="product-price font-primary"><del class="me-1"> ${{ $mansProduct->price  }} </del> <ins> ${{ $mansProduct->discounted_price }} </ins></div>
+									@if ( $mansProduct->discounted_price)
+									<div class="product-price font-primary"><del class="me-1"> {{ currencyPosition($mansProduct->price)  }} </del> <ins> {{ currencyPosition($mansProduct->discounted_price)}} </ins></div>
 									@else
-									<div class="product-price font-primary"><ins > ${{ $mansProduct->price  }} </ins> </div>
+									<div class="product-price font-primary"><ins > {{ currencyPosition($mansProduct->price) }} </ins> </div>
 									@endif
 									
 									<div class="product-rating">

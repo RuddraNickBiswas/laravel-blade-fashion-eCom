@@ -69,11 +69,9 @@
 
                   <!-- Logo
       ============================================= -->
-                  <div id="logo" class="me-lg-4">
-                      <a href="{{ route('home') }}" class="standard-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1200px-React_Logo_SVG.svg.png"
-                              alt="Canvas Logo"></a>
-                      <a href="{{ route('home') }}" class="retina-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/1200px-React_Logo_SVG.svg.png"
-                              alt="Canvas Logo"></a>
+                  <div id="logo" class="me-lg-4 ">
+                      <a href="{{ route('home') }}" class="standard-logo color">rnb.Dev</a>
+                      <a href="{{ route('home') }}" class="retina-logo color">rnb.Dev</a>
                   </div><!-- #logo end -->
 
                   <div class="header-misc">

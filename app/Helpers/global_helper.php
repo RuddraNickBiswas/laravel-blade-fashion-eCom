@@ -1,5 +1,21 @@
 <?php
 
+if (!function_exists('currencyPosition')) {
+    function currencyPosition($price)
+    {
+        if (config('settings.site_currency_position') === 'right') {
+
+            return  $price . config('settings.site_currency_symbol');
+
+        } else if (config('settings.site_currency_position') === 'left') {
+
+            return  config('settings.site_currency_symbol') . $price;
+
+        }
+    }
+}
+
+
 if (!function_exists('cartTotal')) {
 
     /**
@@ -20,10 +36,12 @@ if (!function_exists('cartTotal')) {
 
         return $total;
     }
+}
 
+if (!function_exists('cartProductTotal')) {
     function cartProductTotal($rowId)
     {
-    $cartProduct = Cart::get($rowId);
+        $cartProduct = Cart::get($rowId);
         $price = $cartProduct->price;
         $qty = $cartProduct->qty;
 
