@@ -26,4 +26,11 @@ trait FileUploadTrait {
 
         return null;
     }
+
+    function destroyImage($oldPath) {
+        if ($oldPath && File::exists(public_path($oldPath))) {
+            File::delete(public_path($oldPath));
+        }
+        return;
+    }
 }

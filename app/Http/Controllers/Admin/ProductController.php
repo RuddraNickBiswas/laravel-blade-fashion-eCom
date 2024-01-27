@@ -104,6 +104,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+           $this->destroyImage($product->thumbnail_path);
             $product->delete();
             return response(['status' => 'success', 'message' => 'Category deleted successfull']);
         } catch (\Exception $e) {

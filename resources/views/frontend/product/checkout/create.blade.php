@@ -29,54 +29,55 @@
 
                         <form id="billing-form" name="billing-form" class="row mb-0" action="#" method="post">
 
-                            <div class="col-md-6 form-group">
-                                <label for="billing-form-name">Name:</label>
-                                <input type="text" id="billing-form-name" name="billing-form-name" value=""
-                                    class="sm-form-control" />
-                            </div>
+                        
 
-                            <div class="col-md-6 form-group">
-                                <label for="billing-form-lname">Last Name:</label>
-                                <input type="text" id="billing-form-lname" name="billing-form-lname" value=""
+                            <div class="col-md-12 form-group">
+                                <label for="billing-form-lname">Full Name:</label>
+                                <input type="text" id="billing-form-lname" name="name" value="{{ auth()->user()->name }}"
                                     class="sm-form-control" />
                             </div>
 
                             <div class="w-100"></div>
 
-                            <div class="col-12 form-group">
-                                <label for="billing-form-companyname">Company Name:</label>
-                                <input type="text" id="billing-form-companyname" name="billing-form-companyname"
-                                    value="" class="sm-form-control" />
-                            </div>
-
-                            <div class="col-12 form-group">
-                                <label for="billing-form-address">Address:</label>
-                                <input type="text" id="billing-form-address" name="billing-form-address" value=""
-                                    class="sm-form-control" />
-                            </div>
-
-                            <div class="col-12 form-group">
-                                <input type="text" id="billing-form-address2" name="billing-form-adress" value=""
-                                    class="sm-form-control" />
-                            </div>
-
-                            <div class="col-12 form-group">
-                                <label for="billing-form-city">City / Town</label>
-                                <input type="text" id="billing-form-city" name="billing-form-city" value=""
-                                    class="sm-form-control" />
-                            </div>
-
                             <div class="col-md-6 form-group">
                                 <label for="billing-form-email">Email Address:</label>
-                                <input type="email" id="billing-form-email" name="billing-form-email" value=""
+                                <input type="email" id="billing-form-email" name="email" value="{{ auth()->user()->email }}"
                                     class="sm-form-control" />
                             </div>
 
                             <div class="col-md-6 form-group">
-                                <label for="billing-form-phone">Phone:</label>
-                                <input type="text" id="billing-form-phone" name="billing-form-phone" value=""
+                                <label for="billing-form-phone">Phone Number:</label>
+                                <input type="text" id="billing-form-phone" name="phone" value=""
                                     class="sm-form-control" />
                             </div>
+
+                            <div class="col-12 form-group">
+                                <label for="district">Select District:</label>
+                                <select id="district" name="district" class="form-control">
+                                    <option value="" disabled selected>Select District</option>
+                                    @foreach ($districts as $district)
+                                        <option @selected($district->id === $selectedDistrict->id) value="{{ $district->id }}">{{ $district->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="city">Select City:</label>
+                                <select id="city" name="city" class="form-control">
+                                    @foreach ($selectedDistrict->cities as  $city)
+                                    <option @selected($city->id === $selectedCity->id) value="{{ $city->id }}" data-delivery-charge="{{ $city->delivery_charge }}" >{{ $city->name }}</option>
+                                        
+                                    @endforeach
+                                </select>
+                            </div> 
+
+                            <div class="col-12 form-group">
+                                <label for="billing-form-city">Address:(must be incide city)</label>
+                                <input type="text" id="billing-form-city" name="address" value=""
+                                    class="sm-form-control" />
+                            </div>
+
+                         
 
                         </form>
                     </div>
@@ -100,8 +101,8 @@
                                         <tr class="cart_item">
                                             <td class="cart-product-thumbnail">
                                                 <a href="#"><img width="64" height="64"
-                                                        src="{{ $cartProduct->options->product_info['thumbnail_path'] }}"
-                                                        alt="Pink Printed Dress"></a>
+                                                    src="{{ asset($cartProduct->options->product_info['thumbnail_path']) }}"
+                                                    alt="Pink Printed Dress"></a>
                                             </td>
 
                                             <td class="cart-product-name">
@@ -117,7 +118,7 @@
                                             </td>
 
                                             <td class="cart-product-subtotal">
-                                                <span class="amount color">$ {{ cartProductTotal($cartProduct->rowId) }} </span>
+                                                <span class="amount color">{{ currencyPosition(cartProductTotal($cartProduct->rowId))}} </span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -133,16 +134,18 @@
 
                     <div class="col-lg-6">
                         <h4>Cart Totals</h4>
+
                         <div class="table-responsive">
-                            <table class="table cart">
+                            <table class="table cart cart-totals">
                                 <tbody>
                                     <tr class="cart_item">
-                                        <td class="border-top-0 cart-product-name">
+                                        <td class="cart-product-name">
                                             <strong>Cart Subtotal</strong>
                                         </td>
 
-                                        <td class="border-top-0 cart-product-name">
-                                            <span class="amount">$106.94</span>
+                                        <td class="cart-product-name">
+                                            <span id="cartSubTotal" data-value="{{ cartTotal() }}" class="amount"> {{ currencyPosition(cartTotal()) }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr class="cart_item">
@@ -151,7 +154,7 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span class="amount">Free Delivery</span>
+                                            <span id="deliveryFee" class="amount">{{ $selectedCity->delivery_charge }}</span>
                                         </td>
                                     </tr>
                                     <tr class="cart_item">
@@ -160,10 +163,13 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span class="amount color lead"><strong>$106.94</strong></span>
+                                            <span  class="amount color lead" id="cartGrandTotal"><strong>
+                                                    {{ currencyPosition(cartTotal()) }}
+                                                </strong></span>
                                         </td>
                                     </tr>
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -195,3 +201,87 @@
         </div>
     </section><!-- #content end -->
 @endsection
+
+@push('scripts')
+     <script>
+        $(document).ready(function() {
+            $('#district').on('change', function() {
+                var districtId = $(this).val();
+
+                if (districtId) {
+                    $('#city').prop('disabled', true);
+
+                    $.ajax({
+                        url: '/get-cities/' + districtId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#city').empty();
+                            $('#city').append('<option  value="">Select City</option>');
+
+                            $.each(data, function(key, value) {
+                                $('#city').append('<option value="' + value.id +
+                                    '" data-delivery-charge="' + value
+                                    .delivery_charge + '" >' +
+                                    value.name + '</option>');
+                            });
+
+                            $('#city').prop('disabled', false);
+                        }
+                    });
+                } else {
+                    $('#city').empty();
+                    $('#city').prop('disabled', true);
+                }
+            });
+
+            $('#city').on('change', function() {
+                const selectedCityEl = $(this).find(':selected');
+                let deliveryCharge = selectedCityEl.data('delivery-charge');
+                const cartSubTotalEl = $('#cartSubTotal');
+                let cartSubTotal = cartSubTotalEl.data('value');
+        
+                updateCartTotals(cartSubTotal);
+                
+                const deliveryEL = $('#deliveryFee');
+
+                deliveryEL.text("{{ currencyPosition(':amount') }}".replace(':amount', deliveryCharge));
+
+
+            });
+
+            function getCurrentDeliveryCharge() {
+                let selectedCity = $('#city').find(':selected');
+                let deliveryCharge = parseFloat(selectedCity.data('delivery-charge'));
+
+                // Check if deliveryCharge is a valid number
+                if (!isNaN(deliveryCharge)) {
+                    return deliveryCharge.toFixed(2);
+                } else {
+                    return 0;
+                }
+            }
+
+            function updateCartTotals(cartSubTotal) {
+                const cartSubTotalEl = $('#cartSubTotal');
+                const cartGrandTotalEl = $('#cartGrandTotal');
+
+                
+                const currentDeliveryCharge = parseFloat(getCurrentDeliveryCharge());
+
+                const cartGrandTotal = cartSubTotal + currentDeliveryCharge;
+
+                cartSubTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartSubTotal.toFixed(
+                    2)));
+                cartSubTotalEl.data('value', cartSubTotal);
+                
+                cartGrandTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartGrandTotal
+                    .toFixed(2)));
+                    
+            }
+
+
+        
+        });
+    </script>
+@endpush

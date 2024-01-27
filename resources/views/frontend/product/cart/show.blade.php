@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Title
-                                  ============================================= -->
+                                                                      ============================================= -->
     <section id="page-title">
 
         <div class="container">
@@ -16,8 +16,7 @@
 
     </section><!-- #page-title end -->
 
-    <!-- Content
-                                  ============================================= -->
+    <!-- Content                                                              ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container">
@@ -57,7 +56,7 @@
                                 </td>
 
                                 <td class="cart-product-price">
-                                    <span class="amount">$ {{ $cartProduct->price }} </span>
+                                    <span class="amount"> {{ currencyPosition($cartProduct->price) }} </span>
                                 </td>
 
                                 <td class="cart-product-quantity">
@@ -70,35 +69,46 @@
                                 </td>
 
                                 <td class="cart-product-subtotal">
-                                    <span class="amount">$ {{ cartProductTotal($cartProduct->rowId) }} </span>
+                                    <span
+                                        class="amount">{{ currencyPosition(cartProductTotal($cartProduct->rowId)) }}</span>
                                 </td>
                             </tr>
                         @endforeach
-                        {{-- redeem code option --}}
-                        {{-- <tr class="cart_item">
-							<td colspan="6">
-								<div class="row justify-content-between py-2 col-mb-30">
-									<div class="col-lg-auto ps-lg-0">
-										<div class="row">
-											<div class="col-md-8">
-												<input type="text" value="" class="sm-form-control text-center text-md-start" placeholder="Enter Coupon Code.." />
-											</div>
-											<div class="col-md-4 mt-3 mt-md-0">
-												<a href="#" class="button button-3d button-black m-0">Apply Coupon</a>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-auto pe-lg-0">
-										<a href="#" class="button button-3d m-0">Update Cart</a>
-									</div>
-								</div>
-							</td>
-						</tr>	 --}}
+
                     </tbody>
 
                 </table>
 
-                <div class="row d-flex align-items-end justify-content-end col-mb-30">
+
+                <div class="row col-mb-30">
+                    <div class="col-lg-6">
+                        <h4>Calculate Shipping</h4>
+                        <form action="{{ route('checkout.create') }}" class="row">
+                            <div class="col-12 form-group">
+                                <label for="district">Select District:</label>
+                                <select id="district" name="district" class="form-control">
+                                    <option value="" disabled selected>Select District</option>
+                                    @foreach ($districts as $district)
+                                        <option value="{{ $district->id }}">{{ $district->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="col-12 form-group">
+                                <label for="city">Select City:</label>
+                                <select id="city" name="city" class="form-control" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="me-auto">
+                                <button type="submit" class="button button-desc ">
+                                    <div> Checkout </div>
+                                    <span>Go To Checkout Page</span>
+                                </button>
+                            </div>
+        
+                        </form>
+                    </div>
 
                     <div class="col-lg-6">
                         <h4>Cart Totals</h4>
@@ -112,7 +122,8 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span class="amount">$ {{ cartTotal() }} </span>
+                                            <span id="cartSubTotal" data-value="{{ cartTotal() }}" class="amount"> {{ currencyPosition(cartTotal()) }}
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr class="cart_item">
@@ -121,7 +132,7 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span class="amount">Free Delivery</span>
+                                            <span id="deliveryFee" class="amount">Pleace Select An Area</span>
                                         </td>
                                     </tr>
                                     <tr class="cart_item">
@@ -130,7 +141,9 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span class="amount color lead"><strong>$ {{ cartTotal() }} </strong></span>
+                                            <span  class="amount color lead" id="cartGrandTotal"><strong>
+                                                    {{ currencyPosition(cartTotal()) }}
+                                                </strong></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -138,15 +151,13 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <a href="{{ route('checkout.create') }}" class="button button-desc ms-lg-4">
-                            <div> Checkout </div>
-                            <span>Free Forever, Enjoy Free Shipping</span>
-                        </a>
-                    </div>
                 </div>
+             
+
 
             </div>
+
+        </div>
         </div>
     </section><!-- #content end -->
 @endsection
@@ -162,9 +173,15 @@
 
                 cartQtyUpdate(rowId, qty, function(response) {
                     let cartProductTotal = response.cart_product_total;
+                    let cartSubTotal = response.cart_total;
                     if (response.status === 'success') {
-                        qtyElement.closest('tr').find('.cart-product-subtotal span').text("$" +
-                            cartProductTotal);
+                        // Table row subtotal update
+                        qtyElement.closest('tr').find('.cart-product-subtotal span').text(
+                            "{{ currencyPosition(':amount') }}".replace(':amount',
+                                cartProductTotal.toFixed(2)));
+
+                        updateCartTotals(cartSubTotal);
+
                     } else if (response.status === 'error') {
                         qtyElement.val(response.qty)
                         toastr.error(response.message);
@@ -235,7 +252,83 @@
             }
 
 
+            $('#district').on('change', function() {
+                var districtId = $(this).val();
 
+                if (districtId) {
+                    $('#city').prop('disabled', true);
+
+                    $.ajax({
+                        url: '/get-cities/' + districtId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $('#city').empty();
+                            $('#city').append('<option  value="">Select City</option>');
+
+                            $.each(data, function(key, value) {
+                                $('#city').append('<option value="' + value.id +
+                                    '" data-delivery-charge="' + value
+                                    .delivery_charge + '" >' +
+                                    value.name + '</option>');
+                            });
+
+                            $('#city').prop('disabled', false);
+                        }
+                    });
+                } else {
+                    $('#city').empty();
+                    $('#city').prop('disabled', true);
+                }
+            });
+
+            $('#city').on('change', function() {
+                const selectedCityEl = $(this).find(':selected');
+                let deliveryCharge = selectedCityEl.data('delivery-charge');
+                const cartSubTotalEl = $('#cartSubTotal');
+                let cartSubTotal = cartSubTotalEl.data('value');
+        
+                updateCartTotals(cartSubTotal);
+                
+                const deliveryEL = $('#deliveryFee');
+
+                deliveryEL.text("{{ currencyPosition(':amount') }}".replace(':amount', deliveryCharge));
+
+
+            });
+
+            function getCurrentDeliveryCharge() {
+                let selectedCity = $('#city').find(':selected');
+                let deliveryCharge = parseFloat(selectedCity.data('delivery-charge'));
+
+                // Check if deliveryCharge is a valid number
+                if (!isNaN(deliveryCharge)) {
+                    return deliveryCharge.toFixed(2);
+                } else {
+                    return 0;
+                }
+            }
+
+            function updateCartTotals(cartSubTotal) {
+                const cartSubTotalEl = $('#cartSubTotal');
+                const cartGrandTotalEl = $('#cartGrandTotal');
+
+                
+                const currentDeliveryCharge = parseFloat(getCurrentDeliveryCharge());
+
+                const cartGrandTotal = cartSubTotal + currentDeliveryCharge;
+
+                cartSubTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartSubTotal.toFixed(
+                    2)));
+                cartSubTotalEl.data('value', cartSubTotal);
+                
+                cartGrandTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartGrandTotal
+                    .toFixed(2)));
+                    
+            }
+
+
+        
         });
     </script>
 @endpush

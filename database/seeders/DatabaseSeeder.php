@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             SettingSeeder::class,
             CategorySeeder::class,
             CategoryGroupSeeder::class,
+            DeliveryAreaSeeder::class,
         ]);
 
         Product::factory()

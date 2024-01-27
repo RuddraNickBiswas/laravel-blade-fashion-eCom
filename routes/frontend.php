@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomePageController;
@@ -46,6 +47,7 @@ Route::controller(CartController::class)->group(function () {
 
 });
 
+Route::get('/get-cities/{districtId}', [DeliveryAreaController::class, 'getCities']);
 
 
    

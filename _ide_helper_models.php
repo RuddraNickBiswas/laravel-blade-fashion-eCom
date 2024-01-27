@@ -68,6 +68,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\City
+ *
+ * @property-read \App\Models\District|null $district
+ * @method static \Illuminate\Database\Eloquent\Builder|City newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|City newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|City query()
+ */
+	class City extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\District
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\City> $cities
+ * @property-read int|null $cities_count
+ * @method static \Illuminate\Database\Eloquent\Builder|District newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|District newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|District query()
+ */
+	class District extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Product
  *
  * @property int $id

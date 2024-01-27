@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\District;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -84,7 +85,9 @@ class CartController extends Controller
 
     function show()
     {
-        return view('frontend.product.cart.show');
+        $districts = District::get();
+
+        return view('frontend.product.cart.show', compact('districts'));
     }
 
 
@@ -102,7 +105,7 @@ class CartController extends Controller
         $rowId = $request->rowId;
         try {
             Cart::update($rowId, $request->qty);
-            return response(['cart_product_total' => cartProductTotal($rowId)], 200);
+            return response(['status' => 'success', 'cart_product_total' => cartProductTotal($rowId), 'cart_total' => cartTotal()], 200);
         } catch (\Exception $e) {
             logger($e);
             return response(['status' => 'error', 'something went wrong'], 500);
