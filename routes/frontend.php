@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CategoryController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\OrderController;
@@ -38,6 +39,11 @@ Route::controller(ProductController::class)->group(function () {
     Route::get('load-product-modal/{product}', 'loadProductModal')->name('load-product-modal');
 });
 
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/category', 'index')->name('category.index');
+    Route::get('/category/{slug}', 'show')->name('category.show');
+});
 
 Route::controller(CartController::class)->group(function () {
 

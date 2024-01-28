@@ -17,14 +17,14 @@ class CartController extends Controller
     {
         $product = Product::with(['sizes'])->findOrFail($request->productId);
 
+
+
         if ($product->qty < $request->qty) {
             throw ValidationException::withMessages(['Quantity is not available']);
         }
 
         try {
-
             $size = $product->sizes->whereIn('id', $request->size)->first();
-
 
             $options = [
                 'size' => [],
@@ -40,13 +40,13 @@ class CartController extends Controller
                     'id' => $size->id,
                 ];
             }
-
+            $price = $product->discounted_price > 0 ? $product->discounted_price : $product->price;
             Cart::add(
                 [
                     'id' => $product->id,
                     'name' => $product->name,
                     'qty' => $request->qty,
-                    'price' => $product->price,
+                    'price' => $price,
                     'weight' => 0,
                     'options' => $options
                 ]
@@ -98,8 +98,8 @@ class CartController extends Controller
         $product = Product::findOrFail($cartProduct->id);
 
         if ($product->qty < $request->qty) {
-            
-            return response(['status' => 'error' , 'message' => 'quantity is not available', 'qty' => $cartProduct->qty]);
+
+            return response(['status' => 'error', 'message' => 'quantity is not available', 'qty' => $cartProduct->qty]);
         }
 
         $rowId = $request->rowId;

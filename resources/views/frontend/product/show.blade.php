@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Title
-      ============================================= -->
+          ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -28,7 +28,7 @@
                                     <div class="col-md-6">
 
                                         <!-- Product Single - Gallery
-                                        ============================================= -->
+                                            ============================================= -->
                                         <div class="product-image" style="overflow: visible;">
                                             <div id="oc-images" class="owl-carousel image-carousel carousel-widget"
                                                 data-lightbox="gallery" data-margin="0" data-items="1" data-pagi="false"
@@ -67,7 +67,7 @@
                                         <div class="d-flex align-items-center justify-content-between">
 
                                             <!-- Product Single - Price
-                                            ============================================= -->
+                                                ============================================= -->
                                             @if ($product->discounted_price)
                                                 <div class="product-price"><del>$ {{ $product->price }} </del> <ins>
                                                         {{ $product->discounted_price }} </ins></div>
@@ -78,7 +78,7 @@
                                             @endif
 
                                             <!-- Product Single - Rating
-                                            ============================================= -->
+                                                ============================================= -->
                                             <div class="product-rating">
                                                 <i class="icon-star3"></i>
                                                 <i class="icon-star3"></i>
@@ -92,23 +92,24 @@
                                         <div class="line"></div>
 
                                         <!-- Product Single - Quantity & Cart Button
-                                        ============================================= -->
-                                        <div class="cart mb-0 d-flex justify-content-between align-items-center"
-                                            >
-                                            <div class="d-flex justify-content-between  text-center w-100 align-items-center">
+                                            ============================================= -->
+                                        <div class="cart mb-0 d-flex justify-content-between align-items-center">
+                                            <div
+                                                class="d-flex justify-content-between  text-center w-100 align-items-center">
                                                 {{-- <input type="button" value="-" class="minus">
                                                 <input type="number" step="1" min="1" name="quantity"
                                                     value="1" title="Qty" class="qty" />
                                                 <input type="button" value="+" class="plus"> --}}
-                                                <div >  QTY : <span class="color"> {{ $product->qty }} left </span>  </div>
+                                                <div> QTY : <span class="color"> {{ $product->qty }} left </span> </div>
                                             </div>
-                                            <button onclick="loadProductModal({{ $product->id }})" class="add-to-cart button m-0">Add to cart</button>
+                                            <button onclick="loadProductModal({{ $product->id }})"
+                                                class="add-to-cart button m-0">Add to cart</button>
                                         </div><!-- Product Single - Quantity & Cart Button End -->
 
                                         <div class="line"></div>
 
                                         <!-- Product Single - Short Description
-                                        ============================================= -->
+                                            ============================================= -->
                                         <p> {{ $product->description }} </p>
                                         {{-- productOption --}}
                                         <ul class="iconlist">
@@ -118,7 +119,7 @@
                                         </ul><!-- Product Single - Short Description End -->
 
                                         <!-- Product Single - Meta
-                                        ============================================= -->
+                                            ============================================= -->
                                         <div class="card product-meta">
                                             <div class="card-body">
                                                 <span itemprop="productID" class="sku_wrapper">SKU: <span
@@ -134,90 +135,9 @@
                                             </div>
                                         </div><!-- Product Single - Meta End -->
 
-                                        <!-- Product Single - Share
-                                        ============================================= -->
-                                        {{-- <div class="si-share border-0 d-flex justify-content-between align-items-center mt-4">
-                                        <span>Share:</span>
-                                        <div>
-                                            <a href="#" class="social-icon si-borderless si-facebook">
-                                                <i class="icon-facebook"></i>
-                                                <i class="icon-facebook"></i>
-                                            </a>
-                                            <a href="#" class="social-icon si-borderless si-twitter">
-                                                <i class="icon-twitter"></i>
-                                                <i class="icon-twitter"></i>
-                                            </a>
-                                            <a href="#" class="social-icon si-borderless si-pinterest">
-                                                <i class="icon-pinterest"></i>
-                                                <i class="icon-pinterest"></i>
-                                            </a>
-                                            <a href="#" class="social-icon si-borderless si-gplus">
-                                                <i class="icon-gplus"></i>
-                                                <i class="icon-gplus"></i>
-                                            </a>
-                                            <a href="#" class="social-icon si-borderless si-rss">
-                                                <i class="icon-rss"></i>
-                                                <i class="icon-rss"></i>
-                                            </a>
-                                            <a href="#" class="social-icon si-borderless si-email3">
-                                                <i class="icon-email3"></i>
-                                                <i class="icon-email3"></i>
-                                            </a>
-                                        </div>
-                                    </div> --}}
-                                        <!-- Product Single - Share End -->
-
-                                    </div>
-
-                                    {{-- <div class="col-md-3">
-        
-                                    <a href="#" title="Brand Logo" class="d-none d-md-block"><img src="images/shop/brand.jpg" alt="Brand Logo"></a>
-        
-                                    <div class="divider divider-center"><i class="icon-circle-blank"></i></div>
-        
-                                    <div class="feature-box fbox-plain fbox-dark fbox-sm">
-                                        <div class="fbox-icon">
-                                            <i class="icon-thumbs-up2"></i>
-                                        </div>
-                                        <div class="fbox-content fbox-content-sm">
-                                            <h3>100% Original</h3>
-                                            <p class="mt-0">We guarantee you the sale of Original Brands.</p>
-                                        </div>
-                                    </div>
-        
-                                    <div class="feature-box fbox-plain fbox-dark fbox-sm mt-4">
-                                        <div class="fbox-icon">
-                                            <i class="icon-credit-cards"></i>
-                                        </div>
-                                        <div class="fbox-content fbox-content-sm">
-                                            <h3>Payment Options</h3>
-                                            <p class="mt-0">We accept Visa, MasterCard and American Express.</p>
-                                        </div>
-                                    </div>
-        
-                                    <div class="feature-box fbox-plain fbox-dark fbox-sm mt-4">
-                                        <div class="fbox-icon">
-                                            <i class="icon-truck2"></i>
-                                        </div>
-                                        <div class="fbox-content fbox-content-sm">
-                                            <h3>Free Shipping</h3>
-                                            <p class="mt-0">Free Delivery to 100+ Locations on orders above $40.</p>
-                                        </div>
-                                    </div>
-        
-                                    <div class="feature-box fbox-plain fbox-dark fbox-sm mt-4">
-                                        <div class="fbox-icon">
-                                            <i class="icon-undo"></i>
-                                        </div>
-                                        <div class="fbox-content fbox-content-sm">
-                                            <h3>30-Days Returns</h3>
-                                            <p class="mt-0">Return or exchange items purchased within 30 days.</p>
-                                        </div>
-                                    </div>
-        
-                                </div> --}}
 
 
+                                    </div>
 
                                     <div class="w-100"></div>
 
@@ -234,19 +154,25 @@
                             <div class="sidebar col-md-3">
                                 <div class="sidebar-widgets-wrap">
 
-                                    <div class="widget widget_links clearfix">
-
-                                        <h4>Shop Categories</h4>
-                                        <ul>
-                                            <li><a href="#">Shirts</a></li>
-                                            <li><a href="#">Pants</a></li>
-                                            <li><a href="#">Tshirts</a></li>
-                                            <li><a href="#">Sunglasses</a></li>
-                                            <li><a href="#">Shoes</a></li>
-                                            <li><a href="#">Bags</a></li>
-                                            <li><a href="#">Watches</a></li>
-                                        </ul>
-
+                                    <div class="widget clearfix">
+                    
+                                        <h4>Category</h4>
+                        
+                                        <nav class="nav-tree mb-0">
+                                            <ul>
+                                                @foreach ($parentCategories as $category)
+                                                <li><a href="#"><i class="icon-clip"></i>{{ $category->name }}</a>
+                                                    <ul>
+                                                        @foreach ($category->children as $child)
+                                                        <li><a href="{{ route('category.show', $child->slug) }}">{{ $child->name }}</a></li>
+                                                            
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </nav>
+                        
                                     </div>
 
                                     <div class="widget clearfix">
@@ -273,13 +199,13 @@
                                                             <div class="entry-meta no-separator">
                                                                 <ul>
                                                                     @if ($recentProduct->discounted_price)
-                                                                        <li><del class="me-1 "> $
-                                                                                {{ $recentProduct->price }}
-                                                                            </del> <ins class="color"> ${{ $recentProduct->discounted_price }}
+                                                                        <li><del class="me-1 ">
+                                                                                {{ currencyPosition($recentProduct->price)  }}
+                                                                            </del> <ins class="color">
+                                                                                {{ currencyPosition($recentProduct->discounted_price)  }}
                                                                             </ins></li>
                                                                     @else
-                                                                        <li class="color"><ins> $
-                                                                                {{ $recentProduct->price }} </ins> </li>
+                                                                        <li class="color"><ins>{{ currencyPosition($recentProduct->price)  }} </ins> </li>
                                                                     @endif
                                                                     <li><i class="icon-star3"></i><i
                                                                             class="icon-star3"></i><i
@@ -292,14 +218,14 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-
-
+    
+    
                                         </div>
-
+    
                                     </div>
-
+    
                                     <div class="widget clearfix">
-
+    
                                         <h4>Recommanded Product</h4>
                                         <div class="posts-sm row col-mb-30" id="recent-shop-list-sidebar">
                                             @foreach ($randomProducts as $randomProduct)
@@ -320,13 +246,12 @@
                                                             <div class="entry-meta no-separator">
                                                                 <ul>
                                                                     @if ($randomProduct->discounted_price)
-                                                                        <li><del class="me-1 color"> $
-                                                                                {{ $randomProduct->discounted_price }}
-                                                                            </del> <ins> ${{ $randomProduct->price }}
+                                                                        <li><del class="me-1 color">
+                                                                                {{ currencyPosition($randomProduct->discounted_price ) }}
+                                                                            </del> <ins>{{ currencyPosition( $randomProduct->price )}}
                                                                             </ins></li>
                                                                     @else
-                                                                        <li class="color"><ins> $
-                                                                                {{ $randomProduct->price }} </ins> </li>
+                                                                        <li class="color"><ins>{{ currencyPosition($randomProduct->price ) }} </ins> </li>
                                                                     @endif
                                                                     <li><i class="icon-star3"></i><i
                                                                             class="icon-star3"></i><i
@@ -339,11 +264,11 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-
-
+    
+    
                                         </div>
-
-                                    </div>
+    
+                                    </div> 
 
 
                                 </div>

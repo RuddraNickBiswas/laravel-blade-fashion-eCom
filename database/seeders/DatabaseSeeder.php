@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             ->withRandomGallerys()
             ->withSizes()
             ->withDetails()
-            ->count(20)
+            ->count(100)
             ->create();
     }
 }

@@ -182,7 +182,7 @@
                                               <ul class="sub-menu-container">
 
                                                   @foreach ($category->children as $child)
-                                                      <li class="menu-item"><a class="menu-link" href="#">
+                                                      <li class="menu-item"><a class="menu-link" href="{{ route('category.show', $child->slug) }}">
                                                               <div>{{ $child->name }} </div>
                                                           </a></li>
                                                   @endforeach
