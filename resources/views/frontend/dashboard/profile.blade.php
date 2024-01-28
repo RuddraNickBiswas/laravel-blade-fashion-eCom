@@ -23,7 +23,7 @@
                                         <div class="form-group">
                                             <label for="avater">Profile Image</label>
                                             <div class="d-flex align-items-end mb-2">
-                                                <img id="showImage" src="{{ auth()->user()->avater }}" width="250"  class="rounded me-2">
+                                                <img id="showImage" src="{{ asset(auth()->user()->avater) }}" width="250"  class="rounded me-2">
                                                 {{-- <img id="showImage" src="{{ auth()->user()->avater }}" width="150" class="rounded d-block"> --}}
                                             </div>
                                             <input class="form-control " name="avater" type="file" id="image" />
@@ -107,7 +107,7 @@
 
     </div>
     @endsection
-    @push('script')
+    @push('scripts')
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#image').change(function(e) {

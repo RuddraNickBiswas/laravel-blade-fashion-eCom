@@ -19,7 +19,14 @@ class ProductGalleryController extends Controller
             'image' => "required|image|max:4000",
         ]);
 
-        $imagePath = $this->uploadImage($request, 'image', NULL, "/uploads/image/product");
+        $imagePath = $this->uploadImage(
+            request: $request,
+            inputName: 'image',
+            path: '/uploads/image/product',
+            oldPath: null,
+            resizeWidth: 700,
+            resizeHeight: 900
+        );
 
         $product->galleries()->create([
             'path' => $imagePath,

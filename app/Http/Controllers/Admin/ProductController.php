@@ -40,8 +40,16 @@ class ProductController extends Controller
         $data = $request->validated();
         $data['slug'] = Str::slug($request->input('name'));
 
-        $imagePath = $this->uploadImage($request, 'thumbnail', NULL, "/uploads/image/product");
+        // $imagePath = $this->uploadImage($request, 'thumbnail', NULL, "/uploads/image/product");
 
+        $imagePath = $this->uploadImage(
+            request: $request,
+            inputName: 'thumbnail',
+            path: '/uploads/image/product',
+            oldPath: null,
+            resizeWidth: 700,
+            resizeHeight: 900
+        );
         $data['thumbnail_path'] = $imagePath;
         unset($data['thumbnail']);
         $product = Product::create($data);
@@ -83,8 +91,15 @@ class ProductController extends Controller
 
         if ($request->hasFile('thumbnail')) {
 
-            $imagePath = $this->uploadImage($request, 'thumbnail', NULL, "/uploads/image/product");
 
+            $imagePath = $this->uploadImage(
+                request: $request,
+                inputName: 'thumbnail',
+                path: '/uploads/image/product',
+                oldPath: $product->thumbnail_path,
+                resizeWidth: 700,
+                resizeHeight: 900
+            );
             $data['thumbnail_path'] = $imagePath;
             unset($data['thumbnail']);
             $product->update($data);
@@ -104,7 +119,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
-           $this->destroyImage($product->thumbnail_path);
+            $this->destroyImage($product->thumbnail_path);
             $product->delete();
             return response(['status' => 'success', 'message' => 'Category deleted successfull']);
         } catch (\Exception $e) {

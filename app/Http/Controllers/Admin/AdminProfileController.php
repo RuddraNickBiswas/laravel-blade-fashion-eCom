@@ -24,8 +24,16 @@ class AdminProfileController extends Controller
         // dd($request->all());
         $user = Auth::user();
         
-        $imagePath = $this->uploadImage($request, 'avater', $user->avater);
-        // dd($imagePath);
+        $imagePath = $this->uploadImage(
+            request: $request,
+            inputName: 'avater',
+            path: 'uploads/image/avater',
+            oldPath: $user->avater,
+            resizeWidth: 500,
+            resizeHeight: 500
+        );
+        
+        
         $user->avater = isset($imagePath) ? $imagePath : $user->avater;
         $user->name = $request->name;
         $user->email = $request->email;

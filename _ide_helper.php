@@ -4,7 +4,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.40.0.
+ * Generated for Laravel 10.42.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -7495,28 +7495,28 @@
                     /**
          * Determine if all of the given abilities should be granted for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param \Illuminate\Auth\Access\iterable|string $ability
          * @param array|mixed $arguments
          * @return bool 
          * @static 
          */ 
-        public static function allows($abilities, $arguments = [])
+        public static function allows($ability, $arguments = [])
         {
                         /** @var \Illuminate\Auth\Access\Gate $instance */
-                        return $instance->allows($abilities, $arguments);
+                        return $instance->allows($ability, $arguments);
         }
                     /**
          * Determine if any of the given abilities should be denied for the current user.
          *
-         * @param \Illuminate\Auth\Access\iterable|string $abilities
+         * @param \Illuminate\Auth\Access\iterable|string $ability
          * @param array|mixed $arguments
          * @return bool 
          * @static 
          */ 
-        public static function denies($abilities, $arguments = [])
+        public static function denies($ability, $arguments = [])
         {
                         /** @var \Illuminate\Auth\Access\Gate $instance */
-                        return $instance->denies($abilities, $arguments);
+                        return $instance->denies($ability, $arguments);
         }
                     /**
          * Determine if all of the given abilities should be granted for the current user.
@@ -7914,7 +7914,7 @@
      * 
      *
      * @method static \Illuminate\Http\Client\PendingRequest baseUrl(string $url)
-     * @method static \Illuminate\Http\Client\PendingRequest withBody(string $content, string $contentType = 'application/json')
+     * @method static \Illuminate\Http\Client\PendingRequest withBody(\Psr\Http\Message\StreamInterface|string $content, string $contentType = 'application/json')
      * @method static \Illuminate\Http\Client\PendingRequest asJson()
      * @method static \Illuminate\Http\Client\PendingRequest asForm()
      * @method static \Illuminate\Http\Client\PendingRequest attach(string|array $name, string|resource $contents = '', string|null $filename = null, array $headers = [])
@@ -8013,6 +8013,18 @@
         {
                         /** @var \Illuminate\Http\Client\Factory $instance */
                         return $instance->globalResponseMiddleware($middleware);
+        }
+                    /**
+         * Set the options to apply to every request.
+         *
+         * @param array $options
+         * @return \Illuminate\Http\Client\Factory 
+         * @static 
+         */ 
+        public static function globalOptions($options)
+        {
+                        /** @var \Illuminate\Http\Client\Factory $instance */
+                        return $instance->globalOptions($options);
         }
                     /**
          * Create a new response instance for use during stubbing.
@@ -8330,7 +8342,7 @@
          * Get a translation according to an integer value.
          *
          * @param string $key
-         * @param \Countable|int|array $number
+         * @param \Countable|int|float|array $number
          * @param array $replace
          * @param string|null $locale
          * @return string 
@@ -8624,7 +8636,6 @@
      *
      * @method static void write(string $level, \Illuminate\Contracts\Support\Arrayable|\Illuminate\Contracts\Support\Jsonable|\Illuminate\Support\Stringable|array|string $message, array $context = [])
      * @method static \Illuminate\Log\Logger withContext(array $context = [])
-     * @method static \Illuminate\Log\Logger withoutContext()
      * @method static void listen(\Closure $callback)
      * @method static \Psr\Log\LoggerInterface getLogger()
      * @method static \Illuminate\Contracts\Events\Dispatcher getEventDispatcher()
@@ -8705,6 +8716,17 @@
         {
                         /** @var \Illuminate\Log\LogManager $instance */
                         return $instance->sharedContext();
+        }
+                    /**
+         * Flush the log context on all currently resolved channels.
+         *
+         * @return \Illuminate\Log\LogManager 
+         * @static 
+         */ 
+        public static function withoutContext()
+        {
+                        /** @var \Illuminate\Log\LogManager $instance */
+                        return $instance->withoutContext();
         }
                     /**
          * Flush the shared context.
@@ -19742,6 +19764,106 @@
      
 }
 
+    namespace Intervention\Image\Laravel\Facades { 
+            /**
+     * 
+     *
+     */ 
+        class Image {
+                    /**
+         * Create image mangager with given driver
+         *
+         * @param string|\Intervention\Image\Interfaces\DriverInterface $driver
+         * @return \Intervention\Image\ImageManager 
+         * @static 
+         */ 
+        public static function withDriver($driver)
+        {
+                        return \Intervention\Image\ImageManager::withDriver($driver);
+        }
+                    /**
+         * Create image manager with GD driver
+         *
+         * @return \Intervention\Image\ImageManager 
+         * @static 
+         */ 
+        public static function gd()
+        {
+                        return \Intervention\Image\ImageManager::gd();
+        }
+                    /**
+         * Create image manager with Imagick driver
+         *
+         * @return \Intervention\Image\ImageManager 
+         * @static 
+         */ 
+        public static function imagick()
+        {
+                        return \Intervention\Image\ImageManager::imagick();
+        }
+                    /**
+         * Create new image instance with given width & height
+         *
+         * @param int $width
+         * @param int $height
+         * @return \Intervention\Image\Interfaces\ImageInterface 
+         * @static 
+         */ 
+        public static function create($width, $height)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->create($width, $height);
+        }
+                    /**
+         * Create new image instance from given input which can be one of the following
+         * 
+         * - Path in filesystem
+         * - File Pointer resource
+         * - SplFileInfo object
+         * - Raw binary image data
+         * - Base64 encoded image data
+         * - Data Uri
+         * - Intervention\Image\Image Instance
+         * 
+         * To decode the raw input data, you can optionally specify a decoding strategy
+         * with the second parameter. This can be an array of class names or objects
+         * of decoders to be processed in sequence. In this case, the input must be
+         * decodedable with one of the decoders passed. It is also possible to pass
+         * a single object or class name of a decoder.
+         * 
+         * All decoders that implement the `DecoderInterface::class` can be passed. Usually
+         * a selection of classes of the namespace `Intervention\Image\Decoders`
+         * 
+         * If the second parameter is not set, an attempt to decode the input is made
+         * with all available decoders of the driver.
+         *
+         * @param mixed $input
+         * @param string|array|\Intervention\Image\Interfaces\DecoderInterface $decoders
+         * @return \Intervention\Image\Interfaces\ImageInterface 
+         * @static 
+         */ 
+        public static function read($input, $decoders = [])
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->read($input, $decoders);
+        }
+                    /**
+         * Create new animated image by given callback
+         *
+         * @param callable $init
+         * @return \Intervention\Image\Interfaces\ImageInterface 
+         * @static 
+         */ 
+        public static function animate($init)
+        {
+                        /** @var \Intervention\Image\ImageManager $instance */
+                        return $instance->animate($init);
+        }
+         
+    }
+     
+}
+
     namespace Flasher\Laravel\Facade { 
             /**
      * 
@@ -24594,6 +24716,7 @@ namespace  {
             class Vite extends \Illuminate\Support\Facades\Vite {}
             class Cart extends \Gloudemans\Shoppingcart\Facades\Cart {}
             class Debugbar extends \Barryvdh\Debugbar\Facades\Debugbar {}
+            class Image extends \Intervention\Image\Laravel\Facades\Image {}
             class Flasher extends \Flasher\Laravel\Facade\Flasher {}
             class Flare extends \Spatie\LaravelIgnition\Facades\Flare {}
             class DataTables extends \Yajra\DataTables\Facades\DataTables {}
