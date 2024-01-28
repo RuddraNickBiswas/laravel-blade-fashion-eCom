@@ -1,17 +1,42 @@
 <?php
 
+
+if (!function_exists('generateInvoiceId')) {
+    function generateInvoiceId()
+    {
+        $date = now()->format('Ymd');
+
+        $uniqueId = Str::upper(Str::random(8));
+        $invoiceId = "INV-{$date}-{$uniqueId}";
+
+        return $invoiceId;
+    }
+}
+
+
 if (!function_exists('currencyPosition')) {
     function currencyPosition($price)
     {
         if (config('settings.site_currency_position') === 'right') {
 
             return  $price . config('settings.site_currency_symbol');
-
         } else if (config('settings.site_currency_position') === 'left') {
 
             return  config('settings.site_currency_symbol') . $price;
-
         }
+    }
+}
+
+if (!function_exists('cartProductTotal')) {
+    function cartProductTotal($rowId)
+    {
+        $cartProduct = Cart::get($rowId);
+        $price = $cartProduct->price;
+        $qty = $cartProduct->qty;
+
+        $total = $price * $qty;
+
+        return $total;
     }
 }
 
@@ -38,15 +63,14 @@ if (!function_exists('cartTotal')) {
     }
 }
 
-if (!function_exists('cartProductTotal')) {
-    function cartProductTotal($rowId)
+if (!function_exists('cartGrandTotal')) {
+
+    function cartGrandTotal($deliveryFee)
     {
-        $cartProduct = Cart::get($rowId);
-        $price = $cartProduct->price;
-        $qty = $cartProduct->qty;
+        $cartTotal = cartTotal();
 
-        $total = $price * $qty;
+        $cartGrandTotal = $cartTotal + $deliveryFee;
 
-        return $total;
+        return $cartGrandTotal;
     }
 }

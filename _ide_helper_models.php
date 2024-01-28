@@ -70,10 +70,22 @@ namespace App\Models{
 /**
  * App\Models\City
  *
- * @property-read \App\Models\District|null $district
+ * @property int $id
+ * @property string $name
+ * @property string $delivery_charge
+ * @property int $district_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\District $district
  * @method static \Illuminate\Database\Eloquent\Builder|City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City query()
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereDeliveryCharge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereDistrictId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|City whereUpdatedAt($value)
  */
 	class City extends \Eloquent {}
 }
@@ -82,13 +94,112 @@ namespace App\Models{
 /**
  * App\Models\District
  *
+ * @property int $id
+ * @property string $name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\City> $cities
  * @property-read int|null $cities_count
  * @method static \Illuminate\Database\Eloquent\Builder|District newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|District newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|District query()
+ * @method static \Illuminate\Database\Eloquent\Builder|District whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|District whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|District whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|District whereUpdatedAt($value)
  */
 	class District extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Order
+ *
+ * @property int $id
+ * @property string $invoice_id
+ * @property string $name
+ * @property string $email
+ * @property string $phone
+ * @property int $user_id
+ * @property int $qty
+ * @property string|null $discount
+ * @property string $subtotal
+ * @property string $grand_total
+ * @property string $delivery_charge
+ * @property int $delivery_city_id
+ * @property string $delivery_address
+ * @property string $payment_method
+ * @property string $payment_status
+ * @property string|null $transaction_id
+ * @property string|null $coupon_id
+ * @property string|null $currency_code
+ * @property string $status
+ * @property string|null $payment_approve_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrderProduct> $orderProducts
+ * @property-read int|null $order_products_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCouponId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereCurrencyCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryCharge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeliveryCityId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereGrandTotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereInvoiceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePaymentApproveDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePaymentMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePaymentStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereSubtotal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
+ */
+	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\OrderProduct
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $order_id
+ * @property int $product_id
+ * @property float $unit_price
+ * @property int $qty
+ * @property mixed|null $size
+ * @property mixed|null $options
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Order $order
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct query()
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereOrderId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereQty($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereUnitPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|OrderProduct whereUpdatedAt($value)
+ */
+	class OrderProduct extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -293,6 +404,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
+ * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])

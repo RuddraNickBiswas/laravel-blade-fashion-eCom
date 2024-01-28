@@ -2,7 +2,7 @@
     <ul class="sidenav">
         <li><a href="#snav-content1"><i class="icon-screen"></i>User Profile<i
                     class="icon-chevron-right"></i></a></li>
-        <li><a href="#snav-content2"><i class="icon-magic"></i>Invoice<i
+        <li><a href="#snav-content2"><i class="icon-magic"></i>Order<i
                     class="icon-chevron-right"></i></a></li>
         <li><a href="#snav-content3"><i class="icon-tint"></i>Unlimited Color Options<i
                     class="icon-chevron-right"></i></a></li>

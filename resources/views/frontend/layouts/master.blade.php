@@ -166,15 +166,15 @@
     <script>
     
 
-        jQuery(document).ready(function($) {
+        // jQuery(document).ready(function($) {
 
-            $('#linked-to-gallery a').click(function() {
-                var imageLink = $(this).attr('data-image');
-                jQuery('#oc-images').trigger('to.owl.carousel', [Number(imageLink) - 1, 300, true]);
-                return false;
-            });
+        //     $('#linked-to-gallery a').click(function() {
+        //         var imageLink = $(this).attr('data-image');
+        //         jQuery('#oc-images').trigger('to.owl.carousel', [Number(imageLink) - 1, 300, true]);
+        //         return false;
+        //     });
 
-        });
+        // });
 
         @if ($errors->any())
             @foreach ($errors->all() as $error)

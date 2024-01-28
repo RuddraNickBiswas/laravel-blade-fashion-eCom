@@ -18,10 +18,10 @@
                 <div class="form-group">
                     <label>Product Thumbnail</label>
                     <div class="d-flex align-items-end mb-2">
-                        <img id="showGImage" src="" width="250" class="rounded me-2">
+                        <img id="showImage" src="" width="250" class="rounded me-2">
                         {{-- <img id="showImage" src="{{ auth()->user()->avater }}" width="150" class="rounded d-block"> --}}
                     </div>
-                    <input class="form-control " name="thumbnail" type="file" id="galleryImage" />
+                    <input id="productThumbnail" class="form-control " name="thumbnail" type="file"  />
                 </div>
                 <div class="form-group">
                     <label>Name</label>
@@ -50,14 +50,26 @@
                     </div>
 
                 </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    <select name="category_id" class="form-control select2">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
-                        @endforeach
-                    </select>
+                <div class="row form-group">
+                    <div class=" col-md-6" >
+                        <label>Group</label>
+                        <select name="group" class="form-control ">
+                                <option value="all">All</option>
+                                <option value="man">Man</option>
+                                <option value="women">women</option>
+                        </select>
+                    </div>
+                    <div class=" col-md-6" >
+                        <label>Category</label>
+                        <select name="category_id" class="form-control select2">
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
+
 
                 <button class="btn btn-primary" type="submit">save</button>
             </form>
@@ -66,3 +78,16 @@
 @endsection
 
 
+@push('scripts')
+        <script type="text/javascript">
+        $(document).ready(function() {
+            $('#productThumbnail').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
+        });
+        </script>
+@endpush

@@ -41,18 +41,29 @@
         </div>
 
     </div>
-    <div class="form-group">
-        <label>Category</label>
-        <select name="category_id" class="form-control select2">
-            {{-- <option value="" {{ is_null($product->category_id) ? 'selected' : '' }}>No Parent Category --}}
-            </option>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}"
-                    {{ $category->id == $product->category_id ? 'selected' : '' }}>
-                    {{ $category->name }}
+    <div class="row form-group">
+        <div class=" col-md-6" >
+            <label>Group</label>
+            <select name="group" class="form-control ">
+                    <option @selected($product->group === 'all')  value="all">All</option>
+                    <option @selected($product->group === 'man')  value="man">Man</option>
+                    <option @selected($product->group === 'women') value="women">women</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label>Category</label>
+            <select name="category_id" class="form-control select2">
+                {{-- <option value="" {{ is_null($product->category_id) ? 'selected' : '' }}>No Parent Category --}}
                 </option>
-            @endforeach
-        </select>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
 
     <button class="btn btn-primary" type="submit">save</button>

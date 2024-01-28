@@ -22,29 +22,25 @@
 
 @section('content')
     <!-- Page Title
-          ============================================= -->
+              ============================================= -->
     <section id="page-title">
 
-        <div class="container clearfix">
+        <div class="container-fluid px-md-6 clearfix">
             <h1>Account</h1>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
+
         </div>
 
     </section><!-- #page-title end -->
 
     <!-- Content
-          ============================================= -->
+              ============================================= -->
     <section id="content">
         <div class="content-wrap">
-            <div class="container clearfix">
+            <div class="container-fluid px-md-6 clearfix">
 
                 <div id="side-navigation" class="row">
 
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-4 col-lg-3">
                         <ul class="sidenav">
                             <li class="{{ request()->routeIs('profile') ? 'ui-tabs-active' : '' }}">
                                 <a href="{{ route('profile') }}">
@@ -52,9 +48,9 @@
                                     <i class="icon-chevron-right"></i>
                                 </a>
                             </li>
-                            <li class="{{ request()->routeIs('dashboard.order') ? 'ui-tabs-active' : '' }}">
-                                <a href="{{ route('home') }}">
-                                    <i class="icon-magic"></i>Invoice
+                            <li class="{{ request()->routeIs('fn.order.index') ? 'ui-tabs-active' : '' }}">
+                                <a href="{{ route('fn.order.index') }}">
+                                    <i class="icon-magic"></i>Order
                                     <i class="icon-chevron-right"></i>
                                 </a>
                             </li>
@@ -72,22 +68,20 @@
                             </li>
                         </ul>
 
-                       <form method="POST" action="{{ route('logout') }}">
-                     @csrf
-                   
-                     <a href="#"
-                     class="button"
-                         onclick="event.preventDefault();
-                                                this.closest('form').submit();"
-                        >
-                         LOGOUT
-                     </a>
-          
-             </form>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a href="#" class="button"
+                                onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                LOGOUT
+                            </a>
+
+                        </form>
                     </div>
 
 
-                    <div class="col-md-6 col-lg-8">
+                    <div class="col-md-8 col-lg-9">
 
                         @yield('sidebar_content')
 
@@ -99,5 +93,4 @@
             </div>
         </div>
     </section><!-- #content end -->
- 
 @endsection

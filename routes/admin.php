@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryGroupController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailsController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -30,4 +31,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('product.productGallery', ProductGalleryController::class)->only(['store', 'destroy']);
     Route::resource('product.productSize', ProductSizeController::class)->only(['store', 'destroy']);
     Route::resource('product.productDetails', ProductDetailsController::class)->only(['store']);
+
+
+    Route::controller(OrderController::class)->group(function(){
+        Route::get('/order' , 'index')->name('order.index');
+        Route::get('/order/{order}' , 'show')->name('order.show');
+        Route::post('/order/{order}' , 'statusUpdate')->name('order.update');
+    });
 });

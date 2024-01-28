@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DeliveryAreaController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
 use App\Http\Controllers\User\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +24,11 @@ Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/profile', 'index')->name('profile');
         Route::put('/profile', 'profileUpdate')->name('profile.update');
         Route::put('/profile/password', 'passwordUpdate')->name('profile.password.update');
+    });
+
+    Route::controller(OrderController::class)->group(function(){
+        Route::get('/order', 'index')->name('fn.order.index');
+        Route::get('/order/{order}', 'show')->name('fn.order.show');
     });
 })->middleware(['auth', 'verified']);
 
@@ -48,10 +54,6 @@ Route::controller(CartController::class)->group(function () {
 });
 
 Route::get('/get-cities/{districtId}', [DeliveryAreaController::class, 'getCities']);
-
-
-   
-
 
 
 Route::resource('/checkout' ,CheckoutController::class )->only('create' ,'store')->middleware('auth');

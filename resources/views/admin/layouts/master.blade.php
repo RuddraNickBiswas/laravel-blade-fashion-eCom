@@ -99,11 +99,11 @@
 
     <!-- Page Specific JS File -->
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('admin/assets/js/page/index.js') }}"></script>
+    {{-- <script src="{{ asset('admin/assets/js/page/index.js') }}"></script> --}}
+    {{-- <script src="{{ asset('admin/assets/js/page/forms-advanced-forms.js') }}"></script> --}}
 
 {{-- form --}}
   <script src="{{ asset('admin/assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
-  <script src="{{ asset('admin/assets/js/page/forms-advanced-forms.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ asset('admin/assets/js/scripts.js') }}"></script>

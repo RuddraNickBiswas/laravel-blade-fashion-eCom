@@ -28,6 +28,7 @@ class ProductStoreRequest extends FormRequest
             'qty' => 'required|numeric',
             'price' => 'required|numeric',
             'discounted_price' => 'required|numeric',
+            'group' => 'required|in:all,man,women',
             'category_id' => 'required|exists:categories,id',
             'is_visible' => 'boolean',
         ];

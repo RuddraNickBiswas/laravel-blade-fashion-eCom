@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Title
-      ============================================= -->
+          ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -17,7 +17,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-      ============================================= -->
+          ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -27,27 +27,28 @@
                         <h3>Create Your Order</h3>
 
 
-                        <form id="billing-form" name="billing-form" class="row mb-0" action="#" method="post">
+                        <form id="checkoutForm" name="billing-form" class="row mb-0" action="{{ route('checkout.store') }}"
+                            method="post">
 
-                        
+                            @csrf
 
                             <div class="col-md-12 form-group">
                                 <label for="billing-form-lname">Full Name:</label>
-                                <input type="text" id="billing-form-lname" name="name" value="{{ auth()->user()->name }}"
-                                    class="sm-form-control" />
+                                <input type="text" id="billing-form-lname" name="name"
+                                    value="{{ auth()->user()->name }}" class="sm-form-control" />
                             </div>
 
                             <div class="w-100"></div>
 
                             <div class="col-md-6 form-group">
                                 <label for="billing-form-email">Email Address:</label>
-                                <input type="email" id="billing-form-email" name="email" value="{{ auth()->user()->email }}"
-                                    class="sm-form-control" />
+                                <input type="email" id="billing-form-email" name="email"
+                                    value="{{ auth()->user()->email }}" class="sm-form-control" />
                             </div>
 
                             <div class="col-md-6 form-group">
                                 <label for="billing-form-phone">Phone Number:</label>
-                                <input type="text" id="billing-form-phone" name="phone" value=""
+                                <input type="tel" id="billing-form-phone" name="phone" value=""
                                     class="sm-form-control" />
                             </div>
 
@@ -56,7 +57,8 @@
                                 <select id="district" name="district" class="form-control">
                                     <option value="" disabled selected>Select District</option>
                                     @foreach ($districts as $district)
-                                        <option @selected($district->id === $selectedDistrict->id) value="{{ $district->id }}">{{ $district->name }}</option>
+                                        <option @selected($district->id === $selectedDistrict->id) value="{{ $district->id }}">
+                                            {{ $district->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -64,12 +66,12 @@
                             <div class="col-12 form-group">
                                 <label for="city">Select City:</label>
                                 <select id="city" name="city" class="form-control">
-                                    @foreach ($selectedDistrict->cities as  $city)
-                                    <option @selected($city->id === $selectedCity->id) value="{{ $city->id }}" data-delivery-charge="{{ $city->delivery_charge }}" >{{ $city->name }}</option>
-                                        
+                                    @foreach ($selectedDistrict->cities as $city)
+                                        <option @selected($city->id === $selectedCity->id) value="{{ $city->id }}"
+                                            data-delivery-charge="{{ $city->delivery_charge }}">{{ $city->name }}</option>
                                     @endforeach
                                 </select>
-                            </div> 
+                            </div>
 
                             <div class="col-12 form-group">
                                 <label for="billing-form-city">Address:(must be incide city)</label>
@@ -77,7 +79,7 @@
                                     class="sm-form-control" />
                             </div>
 
-                         
+
 
                         </form>
                     </div>
@@ -101,15 +103,16 @@
                                         <tr class="cart_item">
                                             <td class="cart-product-thumbnail">
                                                 <a href="#"><img width="64" height="64"
-                                                    src="{{ asset($cartProduct->options->product_info['thumbnail_path']) }}"
-                                                    alt="Pink Printed Dress"></a>
+                                                        src="{{ asset($cartProduct->options->product_info['thumbnail_path']) }}"
+                                                        alt="Pink Printed Dress"></a>
                                             </td>
 
                                             <td class="cart-product-name">
                                                 <a href="#"> {{ $cartProduct->name }} </a>
                                             </td>
                                             <td class="cart-product-name">
-                                                <a href="#" class="color"> {{ $cartProduct->options->size['name'] }} </a>
+                                                <a href="#" class="color"> {{ $cartProduct->options->size['name'] }}
+                                                </a>
                                             </td>
                                             <td class="cart-product-quantity">
                                                 <div class="quantity clearfix">
@@ -118,7 +121,9 @@
                                             </td>
 
                                             <td class="cart-product-subtotal">
-                                                <span class="amount color">{{ currencyPosition(cartProductTotal($cartProduct->rowId))}} </span>
+                                                <span
+                                                    class="amount color">{{ currencyPosition(cartProductTotal($cartProduct->rowId)) }}
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -144,7 +149,8 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span id="cartSubTotal" data-value="{{ cartTotal() }}" class="amount"> {{ currencyPosition(cartTotal()) }}
+                                            <span id="cartSubTotal" data-value="{{ cartTotal() }}" class="amount">
+                                                {{ currencyPosition(cartTotal()) }}
                                             </span>
                                         </td>
                                     </tr>
@@ -154,7 +160,8 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span id="deliveryFee" class="amount">{{ $selectedCity->delivery_charge }}</span>
+                                            <span id="deliveryFee"
+                                                class="amount">{{ $selectedCity->delivery_charge }}</span>
                                         </td>
                                     </tr>
                                     <tr class="cart_item">
@@ -163,7 +170,7 @@
                                         </td>
 
                                         <td class="cart-product-name">
-                                            <span  class="amount color lead" id="cartGrandTotal"><strong>
+                                            <span class="amount color lead" id="cartGrandTotal"><strong>
                                                     {{ currencyPosition(cartTotal()) }}
                                                 </strong></span>
                                         </td>
@@ -192,7 +199,7 @@
 
 
                         </div>
-                        <a href="#" class="button button-3d float-end">Place Order</a>
+                        <button id="checkoutFormSubmit" class="button button-3d float-end">Place Order</button>
 
 
                     </div>
@@ -203,7 +210,7 @@
 @endsection
 
 @push('scripts')
-     <script>
+    <script>
         $(document).ready(function() {
             $('#district').on('change', function() {
                 var districtId = $(this).val();
@@ -240,9 +247,9 @@
                 let deliveryCharge = selectedCityEl.data('delivery-charge');
                 const cartSubTotalEl = $('#cartSubTotal');
                 let cartSubTotal = cartSubTotalEl.data('value');
-        
+
                 updateCartTotals(cartSubTotal);
-                
+
                 const deliveryEL = $('#deliveryFee');
 
                 deliveryEL.text("{{ currencyPosition(':amount') }}".replace(':amount', deliveryCharge));
@@ -266,7 +273,7 @@
                 const cartSubTotalEl = $('#cartSubTotal');
                 const cartGrandTotalEl = $('#cartGrandTotal');
 
-                
+
                 const currentDeliveryCharge = parseFloat(getCurrentDeliveryCharge());
 
                 const cartGrandTotal = cartSubTotal + currentDeliveryCharge;
@@ -274,14 +281,20 @@
                 cartSubTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartSubTotal.toFixed(
                     2)));
                 cartSubTotalEl.data('value', cartSubTotal);
-                
+
                 cartGrandTotalEl.text("{{ currencyPosition(':amount') }}".replace(':amount', cartGrandTotal
                     .toFixed(2)));
-                    
+
             }
 
 
-        
+
+        });
+
+
+        $('#checkoutFormSubmit').on('click', function() {
+
+            $('#checkoutForm').submit();
         });
     </script>
 @endpush
