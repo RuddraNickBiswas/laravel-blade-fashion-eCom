@@ -204,6 +204,17 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\PaymentGatewaySetting
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentGatewaySetting newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentGatewaySetting newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentGatewaySetting query()
+ */
+	class PaymentGatewaySetting extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Product
  *
  * @property int $id

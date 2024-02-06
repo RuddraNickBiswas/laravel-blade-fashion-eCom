@@ -294,9 +294,18 @@
 
              <li class="dropdown">
                  <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                         class="fas fa-columns"></i> <span>Setting</span></a>
+                         class="fas fa-columns"></i> <span>General Setting</span></a>
                  <ul class="dropdown-menu">
                      <li><a class="nav-link" href=" {{ route('admin.setting.index') }} ">General Setting</a></li>
+                     {{-- <li><a class="nav-link" href=" {{ route('admin.category.index') }} ">Category</a></li> --}}
+                 </ul>
+             </li>
+
+             <li class="dropdown">
+                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                         class="fas fa-columns"></i> <span>Payment Setting</span></a>
+                 <ul class="dropdown-menu">
+                     <li><a class="nav-link" href=" {{ route('admin.payment-setting.index') }} ">Payment Setting</a></li>
                      {{-- <li><a class="nav-link" href=" {{ route('admin.category.index') }} ">Category</a></li> --}}
                  </ul>
              </li>

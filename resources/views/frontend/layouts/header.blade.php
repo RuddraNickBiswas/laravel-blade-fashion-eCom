@@ -70,8 +70,8 @@
                   <!-- Logo
       ============================================= -->
                   <div id="logo" class="me-lg-4 ">
-                      <a href="{{ route('home') }}" class="standard-logo color">rnb.Dev</a>
-                      <a href="{{ route('home') }}" class="retina-logo color">rnb.Dev</a>
+                      <a href="{{ route('home') }}" class="standard-logo color">RNB</a>
+                      <a href="{{ route('home') }}" class="retina-logo color">RNB</a>
                   </div><!-- #logo end -->
 
                   <div class="header-misc">

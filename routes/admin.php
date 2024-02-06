@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryGroupController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductDetailsController;
 use App\Http\Controllers\Admin\ProductGalleryController;
@@ -37,5 +38,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/order' , 'index')->name('order.index');
         Route::get('/order/{order}' , 'show')->name('order.show');
         Route::post('/order/{order}' , 'statusUpdate')->name('order.update');
+    });
+
+    Route::prefix('payment-setting')->controller(PaymentGatewaySettingController::class)->group(function(){
+        Route::get('' , 'index')->name('payment-setting.index');
+        Route::put('paypal-setting' , 'paypalSettingUpdate')->name('paypal.setting.update');
     });
 });

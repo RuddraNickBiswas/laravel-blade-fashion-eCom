@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Title
-          ============================================= -->
+              ============================================= -->
     <section id="page-title">
 
         <div class="container clearfix">
@@ -17,7 +17,7 @@
     </section><!-- #page-title end -->
 
     <!-- Content
-          ============================================= -->
+              ============================================= -->
     <section id="content">
         <div class="content-wrap">
             <div class="container clearfix">
@@ -182,22 +182,35 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <h4>Payment Method</h4>
+                        <h4>Available Payment Method</h4>
                         <div class="accordion clearfix">
+                            <div class="accordion-header accordion-active">
+                                <div class="accordion-icon">
+                                    <i class="accordion-closed icon-line-minus"></i>
+                                    <i class="accordion-open icon-line-check"></i>
+                                </div>
+                                <div class="accordion-title">
+                                   Cash On Delivery
+                                </div>
+                            </div>
+                            <div class="accordion-content clearfix" style="display: block;">Donec sed odio dui. Nulla
+                                vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit.
+                                Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</div>
+
+
                             <div class="accordion-header">
                                 <div class="accordion-icon">
                                     <i class="accordion-closed icon-line-minus"></i>
                                     <i class="accordion-open icon-line-check"></i>
                                 </div>
                                 <div class="accordion-title">
-                                    Cash On
+                                    Paypal
                                 </div>
                             </div>
-                            <div class="accordion-content clearfix">Donec sed odio dui. Nulla vitae elit libero, a pharetra
-                                augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante
-                                venenatis dapibus posuere velit aliquet.</div>
-
-
+                            <div class="accordion-content clearfix" style="display: none;">Nullam id dolor id nibh
+                                ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit
+                                aliquet. Duis mollis, est non commodo luctus. Aenean lacinia bibendum nulla sed consectetur.
+                            </div>
                         </div>
                         <button id="checkoutFormSubmit" class="button button-3d float-end">Place Order</button>
 

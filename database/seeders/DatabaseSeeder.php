@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             SettingSeeder::class,
             CategorySeeder::class,
+            PaymentGatewaySettingSeeder::class,
             CategoryGroupSeeder::class,
             DeliveryAreaSeeder::class,
         ]);

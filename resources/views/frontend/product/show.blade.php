@@ -69,11 +69,11 @@
                                             <!-- Product Single - Price
                                                 ============================================= -->
                                             @if ($product->discounted_price)
-                                                <div class="product-price"><del>$ {{ $product->price }} </del> <ins>
-                                                        {{ $product->discounted_price }} </ins></div>
+                                                <div class="product-price"><del>{{ currencyPosition($product->price)  }} </del> <ins>
+                                                        {{ currencyPosition($product->discounted_price)  }} </ins></div>
                                                 <!-- Product Single - Price End -->
                                             @else
-                                                <div class="product-price"><ins>$ {{ $product->price }} </ins></div>
+                                                <div class="product-price"><ins>{{ currencyPosition($product->price)  }} </ins></div>
                                                 <!-- Product Single - Price End -->
                                             @endif
 

@@ -172,6 +172,7 @@ return [
         //Custom Service Provider
 
         App\Providers\SettingServiceProvider::class,
+        App\Providers\PaymentGatewaySettingServiceProvider::class,
 
         // Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ])->toArray(),

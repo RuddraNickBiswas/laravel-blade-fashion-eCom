@@ -81,7 +81,7 @@ class CheckoutController extends Controller
             };
         Cart::destroy();
 
-        return redirect()->route('home');
+        return redirect()->route('order.payment.index', $order->id);
         
     }
 }
