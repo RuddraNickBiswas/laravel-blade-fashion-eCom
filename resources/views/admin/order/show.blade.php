@@ -32,6 +32,9 @@
                 <address>
                   <strong>Payment Method:</strong><br>
                  {{ $order->payment_method }}<br>
+                 @if ($order->transaction_id)
+                   {{$order->transaction_id }}
+                 @endif <br>
                  <strong>Payment Statue</strong><br>
                  {{ $order->payment_status }} <br>
                 </address>

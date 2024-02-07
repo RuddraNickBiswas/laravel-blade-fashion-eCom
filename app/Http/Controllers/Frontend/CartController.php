@@ -25,9 +25,10 @@ class CartController extends Controller
 
         try {
             $size = $product->sizes->whereIn('id', $request->size)->first();
-
+            $discountPrice = $product->discounted_price ? $product->price - $product->discounted_price : 0;
             $options = [
                 'size' => [],
+                'discount' => $discountPrice,
                 'product_info' => [
                     'slug' => $product->slug,
                     'thumbnail_path' => $product->thumbnail_path,

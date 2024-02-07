@@ -19,4 +19,15 @@ class Order extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'delivery_city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'delivery_city_id')
+                    ->via('city');
+    }
+
 }

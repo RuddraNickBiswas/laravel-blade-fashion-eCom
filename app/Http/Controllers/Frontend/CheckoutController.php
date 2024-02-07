@@ -47,6 +47,7 @@ class CheckoutController extends Controller
         $city = City::find($request->city);
         $cartGrandtotal = cartGrandTotal($city->delivery_charge) ;
         $cart = Cart::content();
+        $totalDiscount = 0;
         $order = Order::create( [
             'invoice_id' => $invoiceId,
             'name' => $request->name,
@@ -54,7 +55,7 @@ class CheckoutController extends Controller
             'phone' => $request->phone,
             'user_id' => auth()->user()->id,
             'qty' => Cart::content()->count(),
-            'discount' => null, 
+            'discount' => 0, 
             'subtotal' => cartTotal(),
             'grand_total' => $cartGrandtotal,
             'delivery_charge' => $city->delivery_charge,
@@ -71,6 +72,8 @@ class CheckoutController extends Controller
             foreach ($cart as $key => $product) {
                 $productModel = Product::find($product->id);
                 $productName = $productModel->name; 
+                $discount = $product->qty * $product->options->discount;
+                $totalDiscount += $discount;
                 $order->orderProducts()->create([
                     'name' => $productName,
                     'product_id' => $product->id,
@@ -79,6 +82,9 @@ class CheckoutController extends Controller
                     'size' => json_encode($product->options->size),
                 ]);
             };
+            // dd($totalDiscount);
+            $order->discount = $totalDiscount;
+            $order->save();
         Cart::destroy();
 
         return redirect()->route('order.payment.index', $order->id);
