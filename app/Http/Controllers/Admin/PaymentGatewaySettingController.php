@@ -45,5 +45,31 @@ class PaymentGatewaySettingController extends Controller
         toastr()->success('PayPal setting Updated');
         return redirect()->back();
     }
+
+    public function stripeSettingUpdate(Request $request)
+    {
+        $validatedData = $request->validate([
+            'stripe_status' => 'required|boolean',
+            'stripe_country_name' => 'required|string|max:4',
+            'stripe_currency' => 'required|string|max:4',
+            'stripe_currency_rate' => 'required|numeric',
+            'stripe_api_key' => 'required|string',
+            'stripe_secret_key' => 'required|string',
+        ]);
+        dd($request->all());
+    
+        foreach ($validatedData as $key => $value) {
+            PaymentGatewaySetting::updateOrCreate([
+                'key' => $key,
+            ], [
+                'value' => $value,
+            ]);
+        }
+    
+        $PaymentGatewaySettingService = app(PaymentGatewaySettingService::class);
+        $PaymentGatewaySettingService->clearCachedSettings();
+    
+        return redirect()->back()->with('success', 'Stripe setting Updated');
+    }
     
 }

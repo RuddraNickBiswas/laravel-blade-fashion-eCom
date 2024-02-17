@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CategoryGroupController;
+use App\Http\Controllers\Admin\CityController;
+use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentGatewaySettingController;
 use App\Http\Controllers\Admin\ProductController;
@@ -34,6 +36,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('product.productDetails', ProductDetailsController::class)->only(['store']);
 
 
+
+    Route::resource('order-city', CityController::class);
+    Route::resource('order-district', DistrictController::class);
+
     Route::controller(OrderController::class)->group(function(){
         Route::get('/order' , 'index')->name('order.index');
         Route::get('/order/{order}' , 'show')->name('order.show');
@@ -43,5 +49,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::prefix('payment-setting')->controller(PaymentGatewaySettingController::class)->group(function(){
         Route::get('' , 'index')->name('payment-setting.index');
         Route::put('paypal-setting' , 'paypalSettingUpdate')->name('paypal.setting.update');
+        Route::put('stripe-setting' , 'stripeSettingUpdate')->name('stripe.setting.update');
     });
 });

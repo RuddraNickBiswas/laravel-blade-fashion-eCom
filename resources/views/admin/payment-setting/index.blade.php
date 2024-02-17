@@ -21,33 +21,35 @@
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active show" id="general-tab" data-toggle="tab" href="#general"
-                                role="tab" aria-controls="home" aria-selected="true">General</a>
+                            <a class="nav-link active show" id="paypal-tab" data-toggle="tab" href="#paypal"
+                                role="tab" aria-controls="home" aria-selected="true">PayPal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab"
-                                aria-controls="profile" aria-selected="false">Gallery</a>
+                            <a class="nav-link" id="stripe-tab" data-toggle="tab" href="#stripe" role="tab"
+                                aria-controls="profile" aria-selected="false">Stripe</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" id="size-tab" data-toggle="tab" href="#size" role="tab"
                                 aria-controls="contact" aria-selected="false">Size</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab"
                                 aria-controls="contact" aria-selected="false">Large Details</a>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     {{-- Tab Content --}}
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade  active show" id="general" role="tabpanel" aria-labelledby="general-tab">
+                        <div class="tab-pane fade active show" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
 
                             @include('admin.payment-setting.payment-setting-tab.paypal-setting-tab')
 
                         </div>
 
-                        <div class="tab-pane fade " id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-                            {{-- @include('admin.product.edit-tabs.gallery-tab') --}}
+                        <div class="tab-pane fade   show" id="stripe" role="tabpanel" aria-labelledby="stripe-tab">
+
+                           @include('admin.payment-setting.payment-setting-tab.stripe-setting-tab')
+
                         </div>
                         <div class="tab-pane fade  " id="size" role="tabpanel" aria-labelledby="size-tab">
                             {{-- @include('admin.product.edit-tabs.size-tab') --}}

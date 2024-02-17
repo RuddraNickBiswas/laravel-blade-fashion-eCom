@@ -280,15 +280,23 @@
                  </ul>
              </li>
 
+
+             <li class="menu-header">Order Management</li>
              <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                        class="fas fa-columns"></i> <span>Order Managment</span></a>
+                        class="fas fa-columns"></i> <span>Address</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href=" {{ route('admin.order.index') }} ">Orders</a></li>
+                    <li><a class="nav-link" href=" {{ route('admin.order-district.index') }} ">District</a></li>
+                    <li><a class="nav-link" href=" {{ route('admin.order-city.index') }} ">City</a></li>
                     {{-- <li><a class="nav-link" href=" {{ route('admin.category.index') }} ">Category</a></li> --}}
                 </ul>
             </li>
-
+            <li>
+                <a href=" {{ route('admin.order.index') }}" class="nav-link" data-toggle="dropdown"><i
+                    class="fas fa-columns"></i>
+                  Order
+                </a>
+            </li>
 
              <li class="menu-header">Site Settings</li>
 

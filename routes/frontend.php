@@ -66,11 +66,16 @@ Route::get('/get-cities/{districtId}', [DeliveryAreaController::class, 'getCitie
 Route::resource('/checkout' ,CheckoutController::class )->only('create' ,'store')->middleware('auth');
 Route::controller(PaymentController::class)->group(function () {
     Route::get('/payment/{order}' , 'index')->name('order.payment.index');
+    
     Route::get('/payment/paypal/{order}' , 'payWithPaypal')->name('order.payment.paypal');
-
     Route::get('paypal/success/{order}', 'paypalSuccess')->name('paypal.success');
     Route::get('paypal/cancel', 'paypalCancel')->name('paypal.cancel');
      
+
+    Route::get('/payment/stripe/{order}' , 'payWithStripe')->name('order.payment.stripe');
+    Route::get('stripe/success/{order}', 'stripeSuccess')->name('stripe.success');
+    Route::get('stripe/cancel', 'stripeCancel')->name('stripe.cancel');
+
     Route::get('payment-success', 'paymentSuccess')->name('payment.success');
     Route::get('payment-cancel', 'paymentCancel')->name('payment.cancel');
 });

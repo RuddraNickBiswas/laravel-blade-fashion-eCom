@@ -27,8 +27,8 @@ class PaymentGatewaySettingSeeder extends Seeder
             'stripe_country_name' =>'US',
             'stripe_currency' =>'USD',
             'stripe_currency_rate' => '1',
-            'stripe_api_key' => 'pk_test_51O8qYQK6mmJbxfkrDHtsf6rJnsiLIIt38SJoUaAyQQQBilQtQLq6IjQFICl1LRJm9sdiVn63d8mCWF2eKeFhKwdK00KAkeRkWz',
-            'stripe_secret_key' => 'sk_test_51O8qYQK6mmJbxfkrMvDdouVoFnMtb5VG4hk8TaFZSgpNgLucHQ95dxIgHric1QVY3wNCqmqcgensh3xqvqL71jsv00erNNeMAG',
+            'stripe_api_key' => 'pk_test_51OkmOSCYmqPS9sWMaQh7pMttsXIbA29xpDDOObFUkTnVhPDGq4YNxLPO5FLyOWAaoeAlQIzyqjwcHdYypj9sXrnk00z7Cz6kod',
+            'stripe_secret_key' => 'sk_test_51OkmOSCYmqPS9sWM56k5eq8tWuJqwU9RlvIgvsrTsDjrrKBSsqHCgQhJ68CzvYMjTxoVCs4tRTy4b9QPyohXlGPG00E7P2jcJZ',
            
         ];
 
